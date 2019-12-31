@@ -8,17 +8,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author 追风
  * @since 2019-12-16
  */
 @Controller
-@RequestMapping("user")
 public class UserController {
 
 
+    @RequestMapping(value = "login")
+    public String Login(){
 
+        return "login";
+    }
+
+    @RequestMapping(value = "signin")
+    public String SignIn(){
+
+        return "signin";
+    }
 }
 

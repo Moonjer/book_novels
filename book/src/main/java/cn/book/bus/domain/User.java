@@ -34,7 +34,7 @@ public class User implements Serializable {
 
     private String password;
 
-    private String fictionIds;
+    private String shelfIds; //书架
 
     @Override
     public String toString() {
@@ -42,7 +42,7 @@ public class User implements Serializable {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", fictionIds='" + fictionIds + '\'' +
+                ", fictionIds='" + shelfIds + '\'' +
                 '}';
     }
 }

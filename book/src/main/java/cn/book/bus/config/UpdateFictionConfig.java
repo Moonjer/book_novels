@@ -3,23 +3,16 @@ package cn.book.bus.config;
 
 import cn.book.bus.aop.HttpAspect;
 import cn.book.bus.domain.Fiction;
-import cn.book.bus.domain.FictionCollection;
 import cn.book.bus.service.ICollectionService;
 import cn.book.bus.service.IFictionService;
 import cn.book.bus.service.UpdateFictionService;
 import cn.book.bus.service.WriteFictionService;
-import cn.book.bus.utils.JsoupUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.annotation.Resource;
-import java.util.Collection;
 import java.util.List;
 
 @Configuration

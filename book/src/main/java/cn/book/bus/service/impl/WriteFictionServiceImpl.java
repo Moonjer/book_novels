@@ -13,6 +13,7 @@ import cn.book.bus.service.WriteFictionService;
 import cn.book.bus.utils.JsoupUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -87,8 +88,9 @@ public class WriteFictionServiceImpl implements WriteFictionService {
             log.info("小说连接地址错误");
         }
     }
+
     /*
-     * 获取小说基本信息
+     * 获取 书趣阁小说基本信息
      *
      * @param document
      * @return document
@@ -105,6 +107,7 @@ public class WriteFictionServiceImpl implements WriteFictionService {
             String newest = document.select("meta[property=og:novel:latest_chapter_name]").attr("content");
             String state = document.select("meta[property=og:novel:status]").attr("content");
             String img = document.select("div>img").attr("abs:src");
+
             Elements small = document.select("div.small");//小说基本信息
             String number = JsoupUtil.sub(small.get(0).child(3).text());//字数
             return new Fiction("", img, brief, fictionName, author, type, newest, state, number);
@@ -113,6 +116,4 @@ public class WriteFictionServiceImpl implements WriteFictionService {
         }
         return null;
     }
-
-
 }

@@ -26,13 +26,14 @@
     <div class="head">
         <div class="head-top clearfix">
             <div class="logo imgbox fl">
-                <a href="/fiction/index/index"><img src="../picture/logo.png" alt="logo"></a>
+                <a th:href="@{/index}"><img th:src="@{/picture/logo.png}" alt="logo"  src=""></a>
             </div>
-            <form id="commSearch" name="searchForm" method="get"
-                  action="/fiction/index/search" target="_blank">
+            <form id="commSearch" name="searchForm" method="get" th:action="@{/search}" target="_blank">
                 <div class="search-box fl" data-hook="searchSuggest">
-                    <input class="search-text fl" name="fictionName" type="text"
-                           placeholder="请输入书名"/>
+                    <label>
+                        <input class="search-text fl" name="fictionName" type="text"
+                               placeholder="请输入书名"/>
+                    </label>
                     <input type="submit" class="search-btn fr"/>
                 </div>
             </form>
@@ -70,7 +71,7 @@
                     <ul  class="chapter-list clearfix">
 
                         <li th:each="item : ${list}" class=" col-4">
-                            <a  th:text="${item.chapterTitle}" th:href="@{/chapter/read(fiction_id=${item.fictionId},sort=${item.sort})}" target="_blank" th:alt-title="${fiction.fictionName}+'更新时间：'+${#dates.format(item.createDate, 'yyyy-MM-dd HH:mm')}"></a>
+                            <a  th:text="${item.chapterTitle}" th:href="'/fiction/chapter/read/'+${item.fictionId}+'/'+${item.sort}" target="_blank" th:alt-title="${fiction.fictionName}+'更新时间：'+${#dates.format(item.createDate, 'yyyy-MM-dd HH:mm')}"></a>
                         </li>
 
                     </ul>
@@ -96,7 +97,7 @@
             <p>Copyright©<a href="">www.zongheng.com</a>All Rights Reserved 版权所有
                 北京幻想纵横网络技术有限公司
                 <a href="" target="_blank">京ICP证080527号</a>
-                <a href="h" target="_blank">京ICP备11009265号</a>
+                <a href="" target="_blank">京ICP备11009265号</a>
                 <a href="" target="_blank">京网文[2018]10695-962号</a></p>
             <p>
                 <a href="" target="_blank">新出发京零字第朝130010号</a> 丨
@@ -106,7 +107,7 @@
                 <a href="" target="_blank">公安部网络违法犯罪举报网站</a>
             </p>
             <p><a href="" target="_blank">纵横小说网</a>,提供<a
-                    href="" target="_blank">玄幻小说</a>,<a href="/category/9.html"
+                    href="" target="_blank">玄幻小说</a>,<a href=""
                                                         target="_blank">都市小说</a>,<a
                     href="">言情小说</a>等<a
                     href="" target="_blank">免费小说</a>阅读。作者发布小说作品时，请遵守国家互联网信息管理办法规定。

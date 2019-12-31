@@ -23,13 +23,14 @@
     <div class="head">
         <div class="head-top clearfix">
             <div class="logo imgbox fl">
-                <a href="/fiction/index/index"><img src="../picture/logo.png" alt="logo"></a>
+                <a th:href="@{/index}"><img th:src="@{/picture/logo.png}" alt="logo"  src=""></a>
             </div>
-            <form id="commSearch" name="searchForm" method="get"
-                  action="/fiction/index/search" target="_blank">
+            <form id="commSearch" name="searchForm" method="get" th:action="@{/search}" target="_blank">
                 <div class="search-box fl" data-hook="searchSuggest">
-                    <input class="search-text fl" name="fictionName" type="text"
-                           placeholder="请输入书名"/>
+                    <label>
+                        <input class="search-text fl" name="fictionName" type="text"
+                               placeholder="请输入书名"/>
+                    </label>
                     <input type="submit" class="search-btn fr"/>
                 </div>
             </form>
@@ -51,7 +52,7 @@
                     <div class="book-detail clearfix">
                         <div class="book-img fl">
                             <em class=""></em>
-                            <img th:src="${fiction.imgUrl}" src="" th:alt="${fiction.fictionName}" width="200" height="264">
+                            <img th:src="${fiction.imgUrl}" src="" th:alt="${fiction.fictionName}" width="200" height="264" alt="">
                         </div>
                         <div class="book-info">
                             <div th:text="${fiction.fictionName}" class="book-name">
@@ -66,8 +67,8 @@
                                 <p th:text="${fiction.brief}"><br>　</p>
                             </div>
                             <div class="btn-group">
-                                <a class="btn read-btn" target="_blank" th:href="@{/chapter/read(fiction_id=${fiction.id},sort=1)}">开始阅读</a>
-                                <a class="btn read-btn" target="_blank" th:href="@{/chapter/list(fiction_id=${fiction.id})}">章节目录</a>
+                                <a class="btn read-btn" target="_blank" th:href="'/fiction/chapter/read/'+${fiction.id}+'/1'">开始阅读</a>
+                                <a class="btn read-btn" target="_blank" th:href="'/fiction/chapter/list/'+${fiction.id}">章节目录</a>
                                 <div class="btn store-btn Jaddshelf">
                                     加入书架
                                 </div>
@@ -86,10 +87,7 @@
             <div class="book-side fr">
                 <div class="book-author">
                     <div class="au-head">
-                        <a href=""><img
-                                src="http://static.zongheng.com/userimage/default/image_120_120.gif" alt="是十月"
-                                width="60" height="60"></a>
-                        <em>本书作家</em>
+                        <a href=""><img th:src="@{/picture/book.png}" src="" alt="是十月" width="60" height="60"></a><em>本书作家</em>
 
                     </div>
                     <div class="au-name"><a th:text="${fiction.author}" href=""></a>

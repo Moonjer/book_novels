@@ -19,7 +19,6 @@ import java.util.Map;
  * 首页 控制器
  */
 @Controller
-@RequestMapping("index")
 public class IndexController {
 
     private final IFictionService iFictionService;
@@ -29,7 +28,9 @@ public class IndexController {
         this.iFictionService = iFictionService;
     }
 
-
+    /**
+     * 首页
+     */
     @RequestMapping(value = "index")
     public String index(FictionVo fictionVo, Model model) {
         long curr = fictionVo.getCurr();
@@ -38,10 +39,6 @@ public class IndexController {
         map= ClassUtil.setConditionMap(fictionVo,new FictionDto());
         LayuiPage<Fiction>  layuiPage = iFictionService.selectPage(curr, limit,map);
 
-        //强力推荐
-        List<Fiction> suggest_list=iFictionService.querySuggest();
-
-        model.addAttribute("suggest_list",suggest_list);
         model.addAttribute("list",layuiPage.getList());
         fictionVo.setCount(layuiPage.getTotal());
         model.addAttribute("parameter",fictionVo);

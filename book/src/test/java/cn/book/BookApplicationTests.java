@@ -5,12 +5,11 @@
 //import cn.book.bus.domain.Fiction;
 //import cn.book.bus.mapper.ChapterContentMapper;
 //import cn.book.bus.mapper.FictionMapper;
-//import cn.book.bus.service.IChapterContentService;
-//import cn.book.bus.service.IChapterService;
-//import cn.book.bus.service.IFictionService;
-//import cn.book.bus.service.IUserService;
+//import cn.book.bus.service.*;
+//import cn.book.bus.utils.JsoupUtil;
 //import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 //import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+//import org.jsoup.nodes.Document;
 //import org.junit.jupiter.api.Test;
 //import org.springframework.boot.test.context.SpringBootTest;
 //import org.springframework.transaction.annotation.Transactional;
@@ -40,22 +39,29 @@
 //
 //    @Resource
 //    private IChapterContentService iChapterContentService;
-//
+//    @Resource
+//    private WriteFictionService writeFictionService;
 //    @Test
 //    void contextLoads() {
+//
+//
+//    }
+//
+//    //删除小说
+//    @Test
+//    void delete(){
 //        QueryWrapper<Chapter> queryWrapper=new QueryWrapper<>();
-//        queryWrapper.eq("fiction_id",548);
+//        queryWrapper.eq("fiction_id",605);
+//        //得到章节列表
 //        List<Chapter> list = iChapterService.list(queryWrapper);
-//        System.out.println(list.size());
 //        for (Chapter chapter:list){
 //            //删除章节内容
-//            System.out.println(chapter.getContentId());
-//            boolean b = iChapterContentService.removeById(chapter.getContentId());
-//            //删除章节
-//            boolean b1 = iChapterService.removeById(chapter.getId());
+//            iChapterContentService.removeById(chapter.getContentId());
 //        }
-//
-//
+//        //删除章节
+//        iChapterService.remove(queryWrapper);
+//        //删除小说
+//        iFictionService.removeById(605);
 //    }
 //
 //    @Test

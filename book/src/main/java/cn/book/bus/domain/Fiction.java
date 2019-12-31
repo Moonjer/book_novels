@@ -43,8 +43,6 @@ public class Fiction implements Serializable {
 
     private String state;
 
-    private int suggest; //推荐
-    private int sort; //排序
     private int views; //访问量
 
     private String number;
@@ -78,8 +76,6 @@ public class Fiction implements Serializable {
                 ", type='" + type + '\'' +
                 ", newest='" + newest + '\'' +
                 ", state='" + state + '\'' +
-                ", suggest=" + suggest +
-                ", sort=" + sort +
                 ", views=" + views +
                 ", number='" + number + '\'' +
                 ", brief='" + brief + '\'' +

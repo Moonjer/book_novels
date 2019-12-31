@@ -6,7 +6,6 @@ import org.jsoup.nodes.Document;
 
 public interface WriteFictionService {
 
-
     void insert(String fictionURL);
 
     Fiction getFictions(Document document);

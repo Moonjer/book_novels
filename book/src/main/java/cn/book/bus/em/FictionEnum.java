@@ -3,7 +3,7 @@ package cn.book.bus.em;
 public enum FictionEnum {
 
     XUAN_HUAN("玄幻魔法",1),WU_XIA("武侠修真",2),DU_SHI("都市言情",3),LI_SHI("历史军事",4),ZHEN_TAN("侦探推理",5),WANG_YOU("网游动漫",6),
-    KE_HUAN("科幻灵异",7),PAI_HANG("连载中",8),QUAN_BEN("已完结",9);
+    KE_HUAN("科幻灵异",7),PAI_HANG("连载中",8),QUAN_BEN("完本",9);
 
     private  String name;
     private  int index;
