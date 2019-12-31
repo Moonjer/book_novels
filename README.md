@@ -21,10 +21,17 @@ springboot+mybatisplus+jsoup+mysql
 
 ![阅读](https://images.gitee.com/uploads/images/2019/1220/003602_262b0701_5423276.png "屏幕截图.png")
 
+![抓取小说页面](https://images.gitee.com/uploads/images/2019/1231/153536_7ec0df53_5423276.png "屏幕截图.png")
+
+![抓取地址](https://images.gitee.com/uploads/images/2019/1231/153637_a67d4f6c_5423276.png "屏幕截图.png")
+
+
+
 #### 使用说明
 
 1.   idea 开发
 2.   演示地址 ：http://47.107.116.236:8080/fiction/index/index
+3.   演示地址 ：http://47.107.116.236:8080/fiction/sys/index
 
 #### 说明
 
