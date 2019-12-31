@@ -44,7 +44,7 @@ springboot+mybatisplus+jsoup+mysql
 #### 使用说明
 
 1.   idea 开发
-2.   演示地址 ：http://47.107.116.236:8080/fiction/index/index
+2.   演示地址 ：http://47.107.116.236:8080/fiction/index
 3.   演示地址 ：http://47.107.116.236:8080/fiction/sys/index
 
 #### 说明
