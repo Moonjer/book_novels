@@ -41,7 +41,7 @@
                     <div th:if="${session.username==null}" class="login fl"><a class="user_login layui-icon" th:href="@{/login}">&#xe66f;登录</a></div>
                     <div th:if="${session.username==null}" class="regist fl"><a class="user_register layui-icon" th:href="@{/signin}">&#xe672;注册</a></div>
                     <div th:if="${session.username!=null}" class="shelf">
-                        <a href="" class="layui-icon" target="_blank">&#xe705;书架</a>
+                        <a th:href="@{/shelf}" class="layui-icon" target="_blank">&#xe705;书架</a>
                         <a style="padding-left: 18px;" class="layui-icon" th:href="@{/logout}">&#x1006;注销</a></div>
                 </div>
             </div>
@@ -77,8 +77,7 @@
                         </div>
                     </div>
                     <div class="btn">
-                        <a th:href="@{/chapter/info(fiction_id=${item.id})}" target="_blank" class="bkinfo">书籍详情</a>
-                        <a href="javascript:void(0);" class="addshelf" data-bookid="189169">加入书架</a>
+                        <a  th:href="'/fiction/chapter/info/'+${item.id}"  target="_blank" class="bkinfo">书籍详情</a>
                     </div>
                 </div>
             </div>

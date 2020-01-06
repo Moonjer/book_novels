@@ -59,7 +59,7 @@
     <!--图文区-->
     <div class="store_list_wrap">
     <div class="store_collist">
-        <p th:if="${list.size()==0}">暂无书籍</p>
+        <p th:if="${list.size()==0}" style="text-align: center">暂无书籍</p>
         <div th:each="item,status : ${list}">
             <div  th:class="${status.count%2==0}?'bookbox fr':'bookbox fl'" class="bookbox fl">
                 <div class="bookimg">

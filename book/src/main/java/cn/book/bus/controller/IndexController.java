@@ -23,6 +23,7 @@ public class IndexController {
 
     private final IFictionService iFictionService;
 
+
     @Autowired
     public IndexController(IFictionService iFictionService) {
         this.iFictionService = iFictionService;
@@ -51,6 +52,7 @@ public class IndexController {
      */
     @RequestMapping(value = "search")
     public String  search( Model model, FictionVo fictionVo) {
+
         String fictionName = fictionVo.getFictionName();
         model.addAttribute("fictionName",fictionName);
         List<Fiction> list = iFictionService.queryLike(fictionName);
