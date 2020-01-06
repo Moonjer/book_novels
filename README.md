@@ -54,13 +54,12 @@ springboot+mybatisplus+jsoup+mysql
 ![抓取地址](https://images.gitee.com/uploads/images/2019/1231/153637_a67d4f6c_5423276.png "屏幕截图.png")
 
 
-#### 使用说明
+#### 演示地址
 
-1.   idea 开发
-2.   演示地址 ：http://47.107.116.236:8080/fiction/index
-3.   演示地址 ：http://47.107.116.236:8080/fiction/sys/index
+2.   首页地址 ：http://47.107.116.236:8080/fiction/index
+3.   抓取数据地址 ：http://47.107.116.236:8080/fiction/sys/index
 
 #### 说明
 
-1.   大家一起学习！
-2.   项目前端基本完成，剩下后台管理。
+1.   项目前端基本完成，后续编写后台管理。
+2.   开源学习，请勿商用。
