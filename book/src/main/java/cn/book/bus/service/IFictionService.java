@@ -32,4 +32,9 @@ public interface IFictionService extends IService<Fiction>{
      * @return 分页类
      */
     LayuiPage<Fiction> selectPage(long curr, long limit, Map<String,String> map);
+
+    /**
+     * 小说点击量
+     */
+  void   addView(Fiction fiction);
 }

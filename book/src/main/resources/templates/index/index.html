@@ -43,11 +43,13 @@
                     <input type="submit" class="search-btn fr"/>
                 </div>
             </form>
-            <div class="right-wrap-login ud_userTox">
+            <div class="right-wrap-login ud_userTox" style="right: 0">
                 <div class="unlogin ud_unlogin clearfix">
-                    <div class="login fl"><a class="user_login" th:href="@{/login}">登录</a></div>
-                    <div class="regist fl"><a class="user_register" th:href="@{/signin}">注册</a>
-                    </div>
+                    <div th:if="${session.username==null}" class="login fl"><a class="user_login layui-icon" th:href="@{/login}">&#xe66f;登录</a></div>
+                    <div th:if="${session.username==null}" class="regist fl"><a class="user_register layui-icon" th:href="@{/signin}">&#xe672;注册</a></div>
+                    <div th:if="${session.username!=null}" class="shelf">
+                        <a th:href="@{/shelf}" class="layui-icon" target="_blank">&#xe705;书架</a>
+                        <a style="padding-left: 18px;" class="layui-icon" th:href="@{/logout}">&#x1006;注销</a></div>
                 </div>
             </div>
         </div>
@@ -162,10 +164,10 @@
                 </ul>
             </div>
         </div>
-
         <!--图文区-->
-        <div th:if="${parameter.sort_list_type==1}" class="store_collist">
-            <div th:each="item,status : ${list}" th:class="${status.count%2==0}?'bookbox fr':'bookbox fl'" class="bookbox fl">
+        <div class="store_collist">
+        <div th:each="item,status : ${list}" th:if="${parameter.sort_list_type==1}">
+            <div  th:class="${status.count%2==0}?'bookbox fr':'bookbox fl'" class="bookbox fl">
                 <div class="bookimg">
                     <a th:href="'/fiction/chapter/info/'+${item.id}" target="_blank">
                         <img th:src="${item.imgUrl}"
@@ -197,10 +199,11 @@
                         <span class="rank_d_b_time"></span>
                     </div>
                 </div>
-                <div style="margin-top: 3%;" class="dotline"></div>
             </div>
-
+            <div  th:if="${status.count%2==0}" class="dotline"></div>
+            </div>
         </div>
+        <!--图文区-->
     </div>
     <!-- 分页 -->
     <div style="text-align: center">

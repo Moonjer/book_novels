@@ -53,7 +53,7 @@ public class FictionServiceImpl extends ServiceImpl<FictionMapper, Fiction> impl
         //构建分页条件第二页每页显示3条
         Page<Fiction> page = new Page<>(curr, limit);
         QueryWrapper<Fiction> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByDesc("number");
+        queryWrapper.orderByDesc("create_date");
         if (map.size()!=0){
 
             //通过map设置查询参数
@@ -78,5 +78,13 @@ public class FictionServiceImpl extends ServiceImpl<FictionMapper, Fiction> impl
         layuiPage.setList(records);
 
         return layuiPage;
+    }
+
+    @Override
+    public void addView(Fiction fiction) {
+        int i=fiction.getViews();
+        int v=i+1;
+        fiction.setViews(v);
+        iFictionService.updateById(fiction);
     }
 }

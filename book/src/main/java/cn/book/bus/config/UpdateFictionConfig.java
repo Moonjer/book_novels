@@ -3,7 +3,6 @@ package cn.book.bus.config;
 
 import cn.book.bus.aop.HttpAspect;
 import cn.book.bus.domain.Fiction;
-import cn.book.bus.service.ICollectionService;
 import cn.book.bus.service.IFictionService;
 import cn.book.bus.service.UpdateFictionService;
 import cn.book.bus.service.WriteFictionService;
@@ -26,9 +25,6 @@ public class UpdateFictionConfig {
 
     @Resource
     private WriteFictionService writeFictionService;
-
-    @Resource
-    private ICollectionService iCollectionService;
 
     private static final Logger log = LoggerFactory.getLogger(HttpAspect.class);
 

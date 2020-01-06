@@ -1,6 +1,6 @@
 package cn.book.bus.mapper;
 
-import cn.book.bus.domain.FictionCollection;
+import cn.book.bus.domain.FictionShelf;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author 追风
- * @since 2019-12-23
+ * @since 2020-01-05
  */
-public interface CollectionMapper extends BaseMapper<FictionCollection> {
+public interface FictionShelfMapper extends BaseMapper<FictionShelf> {
 
 }

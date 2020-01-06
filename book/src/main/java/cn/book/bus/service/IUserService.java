@@ -13,4 +13,20 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IUserService extends IService<User> {
 
+
+
+    /**
+     *  验证用户名是否可用
+     * @param username 用户名
+     * @return 成功或者失败
+     */
+    boolean verificationUser(String username);
+
+    /**
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @return 登录成功或失败
+     */
+    boolean verificationUser(String username,String password);
 }

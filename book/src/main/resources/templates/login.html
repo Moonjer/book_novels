@@ -8,13 +8,17 @@
   <meta name="keywords" content="小说,小说网,免费小说,纵横中文网" />
   <meta name="description" content="纵横中文网,最热门的免费小说网站,提供玄幻小说、网游小说、言情小说、穿越小说、都市小说等免费小说在线阅读与下载。大神作品齐聚纵横,最新章节每日更新。" />
   <link rel="stylesheet" type="text/css" th:href="@{/css/passport.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}"/>
+  <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+  <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+
 </head>
 
 <body data-cpt3="1" data-cpt3app="FFFF0N00000000006BA5" data-cpt3scene="ic_login">
 
   <div class="wrap pass_header">
     <div class="pass_logo">
-      <a th:href="@{/index/index}" ><img th:src="@{/picture/logo.png}"  alt="" src=""/></a>
+      <a th:href="@{/index}" ><img th:src="@{/picture/logo.png}"  alt="" src=""/></a>
     </div>
     <div class="pass_link">
       没有账号 <a th:href="@{/signin}">注册</a>
@@ -28,34 +32,26 @@
       <div class="login box">
         <div class="comlogin" id="nloginType_comm">
           <div class="login-style">
-            <span class="login-s-msg fl login-s-active data-feeler" clkseed="ACCOUNT-TAB">账号密码登录</span><span
-              class="login-s-line"></span><span class="login-s-user fr data-feeler" clkseed="ACCOUNT-TAB">短信快速登录</span>
+            <span class="login-s-msg fl login-s-active data-feeler" clkseed="ACCOUNT-TAB">账号密码登录</span>
+            <span class="login-s-line"></span><span class="login-s-user fr data-feeler wait" clkseed="ACCOUNT-TAB">短信快速登录</span>
           </div>
           <div class="cl0"></div>
+          <form class="layui-form" action="">
           <div class="login-box" style="display: block;">
-            <p>
-              <label for="username" class="icon-phone"></label>
-              <input type="text" name="username" placeholder="请输入账号" id="username" clkseed="ACCOUNT-INPUT"
-                class="login-text box data-feeler" maxlength="30" />
-              <span class="clear-value">×</span>
+            <p class="layui-form-item">
+              <label>
+              <input type="text" name="username" lay-verify="required" lay-reqtext="账号是必填项，岂能为空？" placeholder="&#xe66f; 输入账号" autocomplete="off" class="layui-input layui-icon"/>
+              </label>
             </p>
-            <p>
-              <label for="password" class="icon-password fl"></label>
-              <input type="password" name="password" placeholder="请输入密码" id="password" clkseed="ACCOUNT-INPUT"
-                class="login-text box data-feeler" maxlength="16" />
-              <span class="clear-value">×</span>
+            <p class="layui-form-item">
+              <label>
+                <input type="password" name="password" lay-verify="required" lay-reqtext="密码是必填项，岂能为空？" placeholder="&#xe673; 输入密码" autocomplete="off" class="layui-input layui-icon">
+              </label>
             </p>
-            <div id="aliscode">
-            </div>
-            <p class="error-more">
-              <label for="imgyzm2" class="icon-safe fl"></label>
-              <input type="text" name="imgyzm" placeholder="请输入验证码" id="imgyzm2"
-                class="login-text box login-t-side fl captimg" maxlength="6" />
-              <img  class="btn-sent changecapt" alt="" src="">
-            </p>
-            <p class="checkbox" style="text-align: right;"><a href="">忘记密码</a></a></p>
-            <input type="submit" class="btn-submit btn-red submit-user" value="登录" />
+            <p class="checkbox" style="text-align: right;"><a href="#" class="wait">忘记密码</a></a></p>
+            <input type="submit" class="btn-submit btn-red submit-user" lay-submit lay-filter="form" value="登录" />
           </div>
+          </form>
         </div>
         <div class="cl0"></div>
       </div>
@@ -63,5 +59,29 @@
     <div class="cl0"></div>
     <div class="cl15"></div>
   </div>
+  <script type="text/javascript" th:src="@{/js/prompt.js}"></script>
+  <script>
+    layui.use(['form','layer'], function(){
+      var form = layui.form;
+      //监听提交
+      form.on('submit(form)', function(data){
+        $.ajax({
+          url: "/fiction/loginV",
+          type: "POST",
+          data: {"username": data.field.username,"password":data.field.password},
+          dataType: 'json',
+          success: function (res) {
+            if (res.status===200){
+              layer.msg(res.msg, {icon: 6});
+              window.location.href = "/fiction/index";
+            }else {
+              layer.msg(res.msg, {icon: 5,anim: 6});
+            }
+          }
+        });
+        return false;
+      });
+    });
+  </script>
 </body>
 </html>

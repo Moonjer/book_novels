@@ -43,7 +43,8 @@
 //    private WriteFictionService writeFictionService;
 //    @Test
 //    void contextLoads() {
-//
+//        boolean b = iUserService.verificationUser("9");
+//        System.out.println(b);
 //
 //    }
 //

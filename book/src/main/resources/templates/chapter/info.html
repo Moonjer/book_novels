@@ -15,6 +15,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/store.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/book.min.css}"/>
 
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}"/>
+    <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
     <script type="text/javascript" th:src="@{/js/jquery-1.9.1.js}"></script>
 
 </head>
@@ -34,11 +36,13 @@
                     <input type="submit" class="search-btn fr"/>
                 </div>
             </form>
-            <div class="right-wrap-login ud_userTox">
+            <div class="right-wrap-login ud_userTox" style="right: 0">
                 <div class="unlogin ud_unlogin clearfix">
-                    <div class="login fl"><a class="user_login" href="">登录</a></div>
-                    <div class="regist fl"><a class="user_register" href="">注册</a>
-                    </div>
+                    <div th:if="${session.username==null}" class="login fl"><a class="user_login layui-icon" th:href="@{/login}">&#xe66f;登录</a></div>
+                    <div th:if="${session.username==null}" class="regist fl"><a class="user_register layui-icon" th:href="@{/signin}">&#xe672;注册</a></div>
+                    <div th:if="${session.username!=null}" class="shelf">
+                        <a href="" class="layui-icon" target="_blank">&#xe705;书架</a>
+                        <a style="padding-left: 18px;" class="layui-icon" th:href="@{/logout}">&#x1006;注销</a></div>
                 </div>
             </div>
         </div>
@@ -69,9 +73,11 @@
                             <div class="btn-group">
                                 <a class="btn read-btn" target="_blank" th:href="'/fiction/chapter/read/'+${fiction.id}+'/1'">开始阅读</a>
                                 <a class="btn read-btn" target="_blank" th:href="'/fiction/chapter/list/'+${fiction.id}">章节目录</a>
-                                <div class="btn store-btn Jaddshelf">
+                                <div th:if="${presence==0}" id="add-shelf" th:name="${fiction.id}" class="btn store-btn no-stored">
                                     加入书架
                                 </div>
+                                <div  style="display: none"  class="btn store-btn stored">已在书架</div>
+                                <div th:if="${presence==1}"  class="btn store-btn stored">已在书架</div>
                             </div>
                         </div>
                     </div>
@@ -112,5 +118,28 @@
     <div class="h20-blank"></div>
     <!-- 书封end -->
 </div>
+<script>
+    layui.use(['layer'], function(){
+        //监听提交
+        $("#add-shelf").click(function () {
+        let fiction_id=$(this).attr("name");
+            $.ajax({
+                url: "/fiction/addShelf",
+                type: "POST",
+                data: {"fiction_id": fiction_id},
+                dataType: 'json',
+                success: function (res) {
+                    if (res.status===200){
+                        $(".no-stored").hide();
+                        $(".stored").show();
+                        layer.msg(res.msg, {icon: 6});
+                    }else {
+                        layer.msg(res.msg, {icon: 5});
+                    }
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
