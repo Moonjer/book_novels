@@ -8,6 +8,15 @@ springboot+mybatisplus+jsoup+mysql
 
 
 #### 图片展示
+
+#### 登录
+
+![登录](https://images.gitee.com/uploads/images/2020/0106/221039_e62bc99f_5423276.png "屏幕截图.png")
+
+#### 注册
+
+![注册](https://images.gitee.com/uploads/images/2020/0106/221135_bc30250f_5423276.png "屏幕截图.png")
+
 #### 头部
 
 ![头部](https://images.gitee.com/uploads/images/2019/1220/003342_5a6182c9_5423276.png "屏幕截图.png")
@@ -54,4 +63,4 @@ springboot+mybatisplus+jsoup+mysql
 #### 说明
 
 1.   大家一起学习！
-2.   项目功能不是很完整，up没有工作经验。谢谢大家
+2.   项目前端基本完成，剩下后台管理。
