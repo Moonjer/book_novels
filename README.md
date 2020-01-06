@@ -20,6 +20,10 @@ springboot+mybatisplus+jsoup+mysql
 
 ![底部](https://images.gitee.com/uploads/images/2019/1220/003453_246b5461_5423276.png "屏幕截图.png")
 
+#### 书架
+
+![书架](https://images.gitee.com/uploads/images/2020/0106/220854_5a050dd4_5423276.png "屏幕截图.png")
+
 #### 小说详情
 
 ![小说详情](https://images.gitee.com/uploads/images/2019/1220/003510_8de5c3f2_5423276.png "屏幕截图.png")
