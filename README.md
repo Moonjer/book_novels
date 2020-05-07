@@ -56,8 +56,8 @@ springboot+mybatisplus+jsoup+mysql
 
 #### 演示地址
 
-2.   首页地址 ：http://47.107.116.236:8080/fiction/index
-3.   抓取数据地址 ：http://47.107.116.236:8080/fiction/sys/index
+2.   首页地址 ：http://47.107.116.236:8888/fiction/index
+3.   抓取数据地址 ：http://47.107.116.236:8888/fiction/sys/index
 
 #### 说明
 
