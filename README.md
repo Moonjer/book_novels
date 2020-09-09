@@ -53,7 +53,8 @@ springboot+mybatisplus+jsoup+mysql
 
 ![抓取地址](https://images.gitee.com/uploads/images/2019/1231/153637_a67d4f6c_5423276.png "屏幕截图.png")
 
-
+#### 代码截图
+![代码截图](https://images.gitee.com/uploads/images/2020/0909/164022_6c652e86_5423276.png "屏幕截图.png")
 #### 演示地址
 
 2.   首页地址 ：http://47.107.116.236:8888/fiction/index
