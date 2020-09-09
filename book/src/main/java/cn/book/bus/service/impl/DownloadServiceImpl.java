@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * 小说下载实现类
+ * @author coffee
  */
 @Service
 public class DownloadServiceImpl extends HttpServlet implements DownloadService {
@@ -51,12 +52,11 @@ public class DownloadServiceImpl extends HttpServlet implements DownloadService 
                     //获取文章内容
                     Chapter cp=iChapterService.getById(list.get(i).getId());
                     //过滤html
-//                    String chapterContent= JsoupUtil.delHTMLTag(cp.getChapterContent());
-//                    fileWriter.write(chapterContent);
-                    fileWriter.flush();//每一次写入后刷新缓冲：
+                    fileWriter.flush();
                     i++;
                 }
-                fileWriter.close();//关闭输入流
+                //关闭输入流
+                fileWriter.close();
             }
             //向浏览器传输文件流
             response.setHeader("Content-disposition", "attachment;filename=" + URLEncoder.encode(fileName + ".txt", "UTF-8"));
@@ -71,20 +71,20 @@ public class DownloadServiceImpl extends HttpServlet implements DownloadService 
             }
             log.info("下载小说："+fileName);
         }catch (Exception e){
-//            System.out.println("下载异常"+e.getMessage());
+            log.error("下载异常："+e.getMessage());
         }finally {
             if (is!=null){
                 try {
                     is.close();
                 }catch (Exception e) {
-//                  System.out.println("关闭InputStream异常"+e.getMessage());
+                    log.error("关闭InputStream异常："+e.getMessage());
                 }
             }
             if (os!=null){
                 try {
                     os.close();
                 }catch (Exception e){
-//                  System.out.println("关闭OutputStream异常"+e.getMessage());
+                    log.error("关闭InputStream异常："+e.getMessage());
                 }
             }
             try {
@@ -92,7 +92,7 @@ public class DownloadServiceImpl extends HttpServlet implements DownloadService 
                     response.getOutputStream().close();
                 }
             }catch (Exception e){
-//              System.out.println("关闭FileWriter异常"+e.getMessage());
+                log.error("关闭InputStream异常："+e.getMessage());
             }
         }
     }

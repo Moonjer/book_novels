@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.sql.Timestamp;
 
+/**
+ * @author coffee
+ */
 @Data
 public class ShelfVo {
 

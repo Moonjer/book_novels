@@ -42,7 +42,13 @@ public class ChapterController {
     }
 
 
-    //返回一本小说
+    /**
+     * 返回一本小说
+     * @param request
+     * @param fiction_id
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "info/{fiction_id}", method = RequestMethod.GET)
     public String chapter(HttpServletRequest request, @PathVariable("fiction_id") int fiction_id, Model model) {
         Fiction fiction = iFictionService.getById(fiction_id);
@@ -55,12 +61,19 @@ public class ChapterController {
             break;
             case 1: model.addAttribute("presence",1);
             break;
+            default:
         }
         model.addAttribute("fiction",fiction);
         model.addAttribute("title",fiction.getFictionName());
         return "chapter/info";
     }
-    //返回一本小说所有章节
+
+    /**
+     * 返回一本小说所有章节
+     * @param fiction_id
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "list/{fiction_id}", method = RequestMethod.GET)
     public String chapterList(@PathVariable("fiction_id") int fiction_id, Model model) {
         Fiction fiction = iFictionService.getById(fiction_id);
@@ -72,7 +85,14 @@ public class ChapterController {
         return "chapter/list";
     }
 
-    //当前小说页
+    /**
+     * 当前小说页
+     * @param request
+     * @param model
+     * @param fiction_id
+     * @param sort
+     * @return
+     */
     @RequestMapping(value = "read/{fiction_id}/{sort}", method = RequestMethod.GET)
     public String chapterInfo(HttpServletRequest request,Model model, @PathVariable("fiction_id") int fiction_id,@PathVariable("sort") int sort) {
         //更新用户阅读章节
@@ -85,16 +105,25 @@ public class ChapterController {
             }
         }
         Chapter chapter=iChapterService.netChapter(fiction_id,sort);
-       //获取小说内容
-        ChapterContent chapterContent=iChapterContentService.getById(chapter.getContentId());
-        model.addAttribute("chapter",chapter);
-        model.addAttribute("content",chapterContent);
-        model.addAttribute("title",chapter.getChapterTitle());
+        if (null!=chapter){
+            //获取小说内容
+            ChapterContent chapterContent=iChapterContentService.getById(chapter.getContentId());
+            model.addAttribute("chapter",chapter);
+            model.addAttribute("content",chapterContent);
+            model.addAttribute("title",chapter.getChapterTitle());
+        }
         return "chapter/read";
     }
 
 
-    //上下页
+    /**
+     * 上下页
+     * @param fiction_id
+     * @param sort
+     * @param status
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "netRead/{fiction_id}/{sort}/{status}",method = RequestMethod.GET)
     public String netChapter(@PathVariable("fiction_id") int fiction_id,@PathVariable("sort") int sort,@PathVariable("status") int status,Model model) {
         if (status==1){

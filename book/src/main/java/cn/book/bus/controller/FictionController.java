@@ -2,6 +2,7 @@ package cn.book.bus.controller;
 
 
 import cn.book.bus.aop.HttpAspect;
+import cn.book.bus.common.Constant;
 import cn.book.bus.service.WriteFictionService;
 import cn.book.bus.utils.JsoupUtil;
 import cn.book.bus.utils.Result;
@@ -40,31 +41,50 @@ public class FictionController {
         return "fiction/sys";
     }
 
+    /**
+     * 抓取单本小说
+     * @param url
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "write", method = RequestMethod.POST)
     public Result fiction_write(@RequestParam("fiction_url") String url) {
-        boolean result = JsoupUtil.isConnection(url);
-        if (result) {
-            writeFiction.insert(url);
-            return new Result(200, "小说地址解析成功!");
-        } else {
-            log.info("FictionController/fiction_write:地址解析失败");
-            return new Result(500, "小说地址解析失败,抓取失败!");
-        }
+            try {
+                boolean result = JsoupUtil.isConnection(url);
+                if (result) {
+                    writeFiction.insert(url);
+                    return new Result(200, "小说地址解析成功!");
+                } else {
+                    log.info("FictionController/fiction_write:地址解析失败");
+                    return new Result(500, "小说地址解析失败,抓取失败!");
+                }
+            }catch (Exception e) {
+                log.info("单本抓取小说失败"+e);
+            }
+        return new Result(500, "小说地址解析失败,抓取失败!");
     }
 
+    /**
+     * 批量抓取小说
+     * @param url
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "writes", method = RequestMethod.POST)
     public Result fiction_writes(@RequestParam("fiction_urls") String url) {
         boolean result = JsoupUtil.isConnection(url);
-        Document document = JsoupUtil.getDoc(url);
         if (result) {
-            Element element = document.select("div.l").first();
-            Elements elements = element.select("span.s2");
-            for (Element element1 : elements) {
-                String string = element1.select("a").attr("abs:href");
-                writeFiction.insert(string);
-            }
+                try {
+                    Document document = JsoupUtil.getDoc(url);
+                    Element element = document.select("div.l").first();
+                    Elements elements = element.select("span.s2");
+                    for (Element element1 : elements) {
+                        String string = element1.select("a").attr("abs:href");
+                        writeFiction.insert(string);
+                    }
+                }catch (Exception e){
+                    log.info("批量抓取小说异常"+e);
+                }
             return new Result(200, "小说地址解析成功!");
         } else {
             log.info("FictionController/fiction_write:地址解析失败");

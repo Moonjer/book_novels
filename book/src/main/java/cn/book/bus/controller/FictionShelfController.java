@@ -65,8 +65,11 @@ public class FictionShelfController {
         return iFictionShelfService.addShelf(request, Fiction_id);
     }
 
-    /*
-    从书架删除小说
+    /**
+     *  从书架删除小说
+     * @param request
+     * @param id
+     * @return
      */
     @ResponseBody
     @RequestMapping(value = "deleteShelf")

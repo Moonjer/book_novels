@@ -44,7 +44,7 @@ public class FictionShelfServiceImpl extends ServiceImpl<FictionShelfMapper, Fic
     @Resource
     private IFictionService iFictionService;
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public Result addShelf(HttpServletRequest request, int fiction_id) {
         HttpSession session = request.getSession();
@@ -58,7 +58,8 @@ public class FictionShelfServiceImpl extends ServiceImpl<FictionShelfMapper, Fic
         fictionShelf.setSort(1);
         fictionShelf.setUserId(userId);
         fictionShelfMapper.insert(fictionShelf);
-        int shelfId=fictionShelf.getId();//书架id
+        //书架id
+        int shelfId=fictionShelf.getId();
 
         //更新用户表
         User user = iUserService.getById(userId);
@@ -115,7 +116,7 @@ public class FictionShelfServiceImpl extends ServiceImpl<FictionShelfMapper, Fic
         return fictionShelfMapper.updateById(fictionShelf);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int deleteShelf(int id, int userId) {
         //从书架表删除

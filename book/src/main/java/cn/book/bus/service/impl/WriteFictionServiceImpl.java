@@ -2,6 +2,7 @@ package cn.book.bus.service.impl;
 
 
 import cn.book.bus.aop.HttpAspect;
+import cn.book.bus.common.Constant;
 import cn.book.bus.domain.Chapter;
 import cn.book.bus.domain.ChapterContent;
 import cn.book.bus.domain.Fiction;
@@ -46,10 +47,10 @@ public class WriteFictionServiceImpl implements WriteFictionService {
      * 抓取小说持久化到mysql数据库
      * @param fictionURL
      */
-    @Async
     @Transactional(rollbackFor = RuntimeException.class)
     @Override
     public   void insert(String fictionURL) {
+
         //爬取小说基本信息
         Fiction fiction = getFictions(JsoupUtil.getDoc(fictionURL));
         if (fiction != null) {
@@ -58,27 +59,37 @@ public class WriteFictionServiceImpl implements WriteFictionService {
             queryWrapper.eq("fiction_name",fiction.getFictionName());
             Fiction ft = iFictionService.getOne(queryWrapper);
             if (ft == null) {
-                fiction.setFictionUrl(fictionURL);//设置url
+                //设置url
+                fiction.setFictionUrl(fictionURL);
                 iFictionService.save(fiction);
                 Document doc = JsoupUtil.getDoc(fictionURL);
                 Elements elements = doc.select("dd>a");
                 log.info("小说章数：" + elements.size());
-                int k = 12;//前面12章节重复
-                int sort = 1;//数据库排序
-                int j = elements.size() - 12;//前面12章节重复
+                //前面12章节重复
+                int k = 12;
+                //数据库排序
+                int sort = 1;
+                //前面12章节重复
+                int j = elements.size() - 12;
                 ChapterContent chapterContent=new ChapterContent();
                 for (int i = 0; i < j; i++) {
-                    String url = elements.get(k).attr("abs:href");
-                    Document document = JsoupUtil.getDoc(url);
-                    String title = document.select("h1").text();//章节标题
-                    String text = JsoupUtil.subContent(document.getElementById("content").html());//章节内容
-                     //保存小说内容
-                    chapterContentMapper.insert(chapterContent.setContent(text));
-                    int id = chapterContent.getId();
-                    chapterMapper.insert(new Chapter(url,fiction.getId(), title, sort,id));
-                    log.info("抓取小说：" + fiction.getFictionName() + "" + title);
-                    sort++;
-                    k++;
+                        try {
+                            String url = elements.get(k).attr("abs:href");
+                            Document document = JsoupUtil.getDoc(url);
+                            //章节标题
+                            String title = document.select("h1").text();
+                            //章节内容
+                            String text = JsoupUtil.subContent(document.getElementById("content").html());
+                            //保存小说内容
+                            chapterContentMapper.insert(chapterContent.setContent(text));
+                            int id = chapterContent.getId();
+                            chapterMapper.insert(new Chapter(url,fiction.getId(), title, sort,id));
+                            log.info("抓取小说：" + fiction.getFictionName() + "" + title);
+                            sort++;
+                            k++;
+                        }catch (Exception e){
+                            log.error("抓取小说内容异常"+e);
+                        }
                 }
                 log.info("抓取小说完成");
             } else {
@@ -89,31 +100,30 @@ public class WriteFictionServiceImpl implements WriteFictionService {
         }
     }
 
-    /*
-     * 获取 书趣阁小说基本信息
-     *
+    /**
+     * 获取书趣阁小说基本信息
      * @param document
-     * @return document
+     * @return
      */
     @Override
     public Fiction getFictions(Document document) {
-        try {
-            String fictionName = document.select("meta[property=og:novel:book_name]").attr("content");
-//          String createDate = document.select("meta[property=og:novel:update_time]").attr("content");
-            String brief = document.select("meta[property=og:description]").attr("content");
-            //String brief=s.substring(0,85);
-            String author = document.select("meta[property=og:novel:author]").attr("content");
-            String type = document.select("meta[property=og:novel:category]").attr("content");
-            String newest = document.select("meta[property=og:novel:latest_chapter_name]").attr("content");
-            String state = document.select("meta[property=og:novel:status]").attr("content");
-            String img = document.select("div>img").attr("abs:src");
-
-            Elements small = document.select("div.small");//小说基本信息
-            String number = JsoupUtil.sub(small.get(0).child(3).text());//字数
-            return new Fiction("", img, brief, fictionName, author, type, newest, state, number);
-        } catch (Exception e) {
-            e.getMessage();
-        }
+        boolean flag = false;
+            try {
+                String fictionName = document.select("meta[property=og:novel:book_name]").attr("content");
+                String brief = document.select("meta[property=og:description]").attr("content");
+                String author = document.select("meta[property=og:novel:author]").attr("content");
+                String type = document.select("meta[property=og:novel:category]").attr("content");
+                String newest = document.select("meta[property=og:novel:latest_chapter_name]").attr("content");
+                String state = document.select("meta[property=og:novel:status]").attr("content");
+                String img = document.select("div>img").attr("abs:src");
+                //小说基本信息
+                Elements small = document.select("div.small");
+                //字数
+                String number = JsoupUtil.sub(small.get(0).child(3).text());
+                return new Fiction("", img, brief, fictionName, author, type, newest, state, number);
+            } catch (Exception e) {
+                log.error("获取小说基本信息失败"+e);
+            }
         return null;
     }
 }

@@ -5,7 +5,6 @@ import cn.book.bus.aop.HttpAspect;
 import cn.book.bus.domain.Fiction;
 import cn.book.bus.service.IFictionService;
 import cn.book.bus.service.UpdateFictionService;
-import cn.book.bus.service.WriteFictionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +22,6 @@ public class UpdateFictionConfig {
     @Resource
     private UpdateFictionService updateFictionService;
 
-    @Resource
-    private WriteFictionService writeFictionService;
 
     private static final Logger log = LoggerFactory.getLogger(HttpAspect.class);
 
@@ -40,7 +37,7 @@ public class UpdateFictionConfig {
         for (Fiction fiction:list){
             updateFictionService.updateFiction(fiction.getId(),fiction.getFictionUrl());
             try {
-                Thread.sleep(300000);
+                Thread.sleep(3000);
             } catch (InterruptedException e) {
                 log.info("线程休眠异常");
                 e.printStackTrace();

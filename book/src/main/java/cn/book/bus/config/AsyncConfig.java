@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 /**
+ * @author coffee
  * @Description: 配置类实现AsyncConfigurer接口，并重写getAsyncExecutor方法，并返回一个ThreadPoolTaskExecutor，
  * 这样我们就获得一个基于线程池TaskExecutor
  * @ClassName: CustomMultiThreadingConfig
@@ -25,15 +26,15 @@ public class AsyncConfig implements AsyncConfigurer{
         //设置核心线程数
         taskExecutor.setCorePoolSize(10);
         //设置最大线程数
-        taskExecutor.setMaxPoolSize(20);
+        taskExecutor.setMaxPoolSize(2000);
         //线程池所使用的缓冲队列容量
-        taskExecutor.setQueueCapacity(2000);
+        taskExecutor.setQueueCapacity(50);
         //等待任务在关机时完成--表明等待所有线程执行完
         taskExecutor.setWaitForTasksToCompleteOnShutdown(true);
         // 等待时间 （默认为0，此时立即停止），并没等待xx秒后强制停止
         taskExecutor.setAwaitTerminationSeconds(10);
         //  线程名称前缀
-        taskExecutor.setThreadNamePrefix("线程--");
+        taskExecutor.setThreadNamePrefix("当前执行线程########");
         // 初始化线程
         taskExecutor.initialize();
         return taskExecutor;

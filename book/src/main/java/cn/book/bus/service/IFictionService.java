@@ -1,11 +1,11 @@
 package cn.book.bus.service;
 
 import cn.book.bus.domain.Fiction;
-import cn.book.bus.vo.LayuiPage;
+import cn.book.bus.vo.FictionVo;
+import cn.book.bus.common.DataGridView;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -26,15 +26,14 @@ public interface IFictionService extends IService<Fiction>{
 
     /**
      *
-     * @param curr 当前页
-     * @param limit 每一页的条数
-     * @param map 查询条件
-     * @return 分页类
+     * @param fictionVo vo
+     * @return
      */
-    LayuiPage<Fiction> selectPage(long curr, long limit, Map<String,String> map);
+    DataGridView queryAllFiction(FictionVo fictionVo);
 
     /**
      * 小说点击量
      */
   void   addView(Fiction fiction);
+
 }

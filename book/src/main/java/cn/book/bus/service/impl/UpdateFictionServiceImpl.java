@@ -39,7 +39,11 @@ public class UpdateFictionServiceImpl implements UpdateFictionService {
     @Resource
     private ChapterContentMapper chapterContentMapper;
 
-    // 系统调度 定时更新小说 此处开启了事务
+    /**
+     * 系统调度 定时更新小说 此处开启了事务
+     * @param fiction_id
+     * @param fiction_url
+     */
     @Async
     @Override
     public void updateFiction(int fiction_id, String fiction_url) {
@@ -63,8 +67,10 @@ public class UpdateFictionServiceImpl implements UpdateFictionService {
                     }
                     String url = element.attr("abs:href");
                     Document document = JsoupUtil.getDoc(url);
-                    String title = document.select("h1").text();//章节标题
-                    String text = document.getElementById("content").html();//章节内容
+                    //章节标题
+                    String title = document.select("h1").text();
+                    //章节内容
+                    String text = document.getElementById("content").html();
                     //保存小说内容
                     chapterContentMapper.insert(chapterContent.setContent(text));
 
@@ -78,20 +84,24 @@ public class UpdateFictionServiceImpl implements UpdateFictionService {
                 int i=elements.size()-catLength-12;
                 System.out.println(fiction.getFictionName()+"最新章节有："+i+"章");
                 int sort=catLength+1;
-                int k=catLength+12;//最新章节下标
+                //最新章节下标
+                int k=catLength+12;
                 Chapter chapter=new Chapter();
                 for (int j=0;j<i;j++){
                 String url=elements.get(k).attr("abs:href");
                 Document document = JsoupUtil.getDoc(url);
-                String title = document.select("h1").text();//章节标题
-                String text = document.getElementById("content").html();//章节内容
-                    //保存小说内容
+                //章节标题
+                String title = document.select("h1").text();
+                //章节内容
+                String text = document.getElementById("content").html();
+                //保存小说内容
                 chapterContentMapper.insert(chapterContent.setContent(text));
                 chapter.setChapterUrl(url);
                 chapter.setFictionId(fiction_id);
                 chapter.setChapterTitle(title);
                 chapter.setSort(sort);
-                chapter.setContentId(chapterContent.getId());//章节内容id
+                    //章节内容id
+                chapter.setContentId(chapterContent.getId());
                 chapter.setCreateDate(TimeUtil.getTimestamp());
                 chapterMapper.insert(chapter);
                    k++;

@@ -7,26 +7,41 @@ import lombok.NoArgsConstructor;
 
 /**
  * 用于接收前端请求参数
+ * @author coffee
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class FictionVo {
-    private long curr;
-    private long limit;
-    private long count;
-    private long type;
-    private long state;
-    private long number;
-    private String fictionName;
-    private long sort_list_type;  //首页展示列表模式
-    private String fiction_id;
+    /**
+     *页数
+     */
+    private Integer curr;
+    /**
+     *每页数
+     */
+    private Integer limit;
+    /**
+     *总数
+     */
+    private Integer count;
+    /**
+     *小说类型
+     */
+    private Integer type;
 
-    public FictionVo() {
-        if (limit==0){
-            this.limit = 20;
-        }
-        if (sort_list_type==0){
-            this.sort_list_type = 1;
-        }
-    }
+    /**
+     *小说名称
+     */
+    private String fictionName;
+
+    /**
+     * 首页展示列表模式
+     */
+    private Integer viewType;
+    /**
+     *小说id
+     */
+    private String fictionId;
+
 }

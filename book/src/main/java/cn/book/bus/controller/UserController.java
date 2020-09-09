@@ -1,19 +1,11 @@
 package cn.book.bus.controller;
 
-
-import cn.book.bus.domain.Fiction;
 import cn.book.bus.domain.User;
-import cn.book.bus.dto.FictionDto;
-import cn.book.bus.service.IFictionService;
 import cn.book.bus.service.IUserService;
-import cn.book.bus.utils.ClassUtil;
 import cn.book.bus.utils.Result;
-import cn.book.bus.vo.FictionVo;
-import cn.book.bus.vo.LayuiPage;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,7 +52,8 @@ public class UserController {
     public Result loginV(HttpServletRequest request, @RequestParam("username") String username, @RequestParam("password") String password){
         boolean b = iUserService.verificationUser(username, password);
         if (b){
-            HttpSession session = request.getSession();//创建session
+            //创建session
+            HttpSession session = request.getSession();
             QueryWrapper<User> queryWrapper=new QueryWrapper<>();
             queryWrapper.eq("username",username);
             User user = iUserService.getOne(queryWrapper);

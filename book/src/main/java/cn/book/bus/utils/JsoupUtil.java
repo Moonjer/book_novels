@@ -1,15 +1,23 @@
 package cn.book.bus.utils;
 
 import cn.book.bus.aop.HttpAspect;
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Jsoup 工具类
@@ -94,25 +102,46 @@ public class JsoupUtil {
      * @return document
      */
     public static Document getDoc(String url) {
+        Map<String, String> header = new HashMap<String, String>();
+        header.put("Host", "http://info.bet007.com");
+        header.put("User-Agent", "  Mozilla/5.0 (Windows NT 6.1; WOW64; rv:5.0) Gecko/20100101 Firefox/5.0");
+        header.put("Accept", "  text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+        header.put("Accept-Language", "zh-cn,zh;q=0.5");
+        header.put("Accept-Charset", "  GB2312,utf-8;q=0.7,*;q=0.7");
+        header.put("Connection", "keep-alive");
         boolean flag = false;
         Document document = null;
+        int i=0;
         do {
             try {
                 document = Jsoup
                         .connect(url)
+                        .header("Host","www.shuquge.com")
+                        .header("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9")
+                        .header("Accept-Encoding","gzip, deflate")
+                        .header("Accept-Language","zh-CN,zh;q=0.9")
+                        .header("Cache-Control","no-cache")
+                        .header("Connection","keep-alive")
+                        .header("Pragma","no-cache")
+                        .header("Upgrade-Insecure-Requests","1")
                         .timeout(5000)
                         .userAgent("Mozilla")//模拟浏览器
                         .get();
                 flag = false;
             } catch (IOException e) {
-                // TODO 自动生成的 catch 块
-//                e.printStackTrace();
-                log.info("链接超时并开始重新连接");
+                i++;
+                log.info("获取html失败了"+i+"次");
                 flag = true;
             }
         } while (flag);
         return document;
     }
+
+    public static void main(String[] args) {
+        Document doc = getDoc("http://www.shuquge.com/txt/8659/33435905.html");
+        System.out.println("doc = " + doc);
+    }
+
     public static boolean isConnection(String url) {
         boolean flag = false;
         int counts = 0;
@@ -135,4 +164,5 @@ public class JsoupUtil {
         }
         return flag;
     }
+
 }
