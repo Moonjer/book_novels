@@ -47,6 +47,7 @@ public class WriteFictionServiceImpl implements WriteFictionService {
      * 抓取小说持久化到mysql数据库
      * @param fictionURL
      */
+    @Async
     @Transactional(rollbackFor = RuntimeException.class)
     @Override
     public   void insert(String fictionURL) {

@@ -25,6 +25,70 @@
         a {
             cursor: pointer;
         }
+         body {
+             background-color: #FCFCFC;
+         }
+
+        dl,
+        dd {
+            margin: 0;
+        }
+
+        #box {
+            width: 100%;
+            margin: 0px auto;
+        }
+
+        #box dl {
+            height: 50px;
+            line-height: 50px;
+            border-bottom: 1px dashed #dadada;
+            margin: 0 20px;
+        }
+
+        #box dt {
+            float: left;
+            color: #8a8a8a;
+        }
+
+        #box dd {
+            float: left;
+            color: #252525;
+            margin: 0 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        #box dd.active {
+            color: #c4284d;
+            font-weight: bold;
+        }
+
+        #box dl.select {
+            background: #efefef;
+            margin: 0;
+            padding: 0 20px;
+        }
+
+        #box dl.select dd{
+            border: 1px solid #c4284d;
+            height: 25px;
+            line-height: 25px;
+            margin-top: 13px;
+            padding: 0 2px 0 10px;
+            border-radius: 3px;background-color: #fff;
+        }
+        #box dl.select dd span{
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            text-align: center;
+            line-height: 20px;
+            background: #c4284d;
+            color: #fff;
+            margin-left: 10px;
+            cursor: pointer;border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -68,55 +132,53 @@
                 <!-- 作品分类 -->
                 <div class="kind">
 <!--                    <div class="bz">作品分类：</div>-->
-                    <div class="nr br sub">
-                        <a class="current store" onclick="queryBook(0)" id="type0">全部作品</a>
-                        <a class="store" onclick="queryBook(1)" id="type1">奇幻玄幻<em></em></a>
-                        <a class="store" onclick="queryBook(2)" id="type2">武侠仙侠<em></em></a>
-                        <a class="store" onclick="queryBook(3)" id="type3">都市娱乐<em></em></a>
-                        <a class="store" onclick="queryBook(4)" id="type4">历史军事<em></em></a>
-                        <a class="store" onclick="queryBook(5)" id="type5">侦探推理<em></em></a>
-                        <a class="store" onclick="queryBook(6)" id="type6">网游动漫<em></em></a>
-                        <a class="store" onclick="queryBook(7)" id="type7">科幻灵异<em></em></a>
-                        <a class="store" onclick="queryBook(8)" id="state8">连载中</a>
-                        <a class="store" onclick="queryBook(9)" id="state9">已完结</a>
-                        <br>
+                    <div id="box">
+                        <dl>
+                            <dt>品牌：</dt>
+                            <dd>惠普</dd>
+                            <dd>联想</dd>
+                            <dd>戴尔</dd>
+                            <dd>三星</dd>
+                            <dd>宏基</dd>
+                            <dd>苹果</dd>
+                            <dd>神舟</dd>
+                            <dd>华硕</dd>
+                            <dd>方正</dd>
+                        </dl>
+                        <dl>
+                            <dt>价格：</dt>
+                            <dd>3000-3999</dd>
+                            <dd>4000-4999</dd>
+                            <dd>5000-5999</dd>
+                            <dd>6000-6999</dd>
+                            <dd>7000-7999</dd>
+                            <dd>8000-8999</dd>
+                            <dd>9000-9999</dd>
+                            <dd>10000以上</dd>
+                        </dl>
+                        <dl>
+                            <dt>尺寸：</dt>
+                            <dd>8.9英寸以及以下</dd>
+                            <dd>11英寸</dd>
+                            <dd>12英寸</dd>
+                            <dd>13英寸</dd>
+                            <dd>14英寸</dd>
+                            <dd>15英寸</dd>
+                            <dd>16英寸</dd>
+                        </dl>
+                        <dl style="border: none">
+                            <dt>显卡：</dt>
+                            <dd>独立显卡</dd>
+                            <dd>集成显卡</dd>
+                            <dd>核芯显卡</dd>
+                        </dl>
+                        <dl class="select" style="border-bottom-width: 0px;">
+                            <dt>已选条件：</dt>
+                            <!-- <dd>16英寸<span>x</span></dd>
+                                <dd>核芯显卡<span>x</span></dd> -->
+                        </dl>
                     </div>
                 </div>
-                <!-- 写作进度 -->
-<!--                <div class="kind">-->
-<!--                    <div class="bz">写作进度：</div>-->
-<!--                    <div class="nr br">-->
-<!--                        <a class="current store" onclick="queryBook(8)" id="state8">全部</a>-->
-<!--                        <a class="store" onclick="queryBook(9)" id="state9">连载中</a>-->
-<!--                        <a class="store" onclick="queryBook(10)" id="state10">已完结</a>-->
-<!--                    </div>-->
-<!--                    <div class="cl0"></div>-->
-<!--                </div>-->
-                <!-- 作品字数 -->
-<!--                <div class="kind">-->
-<!--                    <div class="bz">作品字数：</div>-->
-<!--                    <div class="nr br">-->
-<!--                        <a class="current store" id="number11" onclick="queryBook(11)">全部</a>-->
-<!--                        <a class="store" id="number12" onclick="queryBook(12)">30万字以下</a>-->
-<!--                        <a class="store" id="number13" onclick="queryBook(13)">30万-50万</a>-->
-<!--                        <a class="store" id="number14" onclick="queryBook(14)" >50万-100万</a>-->
-<!--                        <a class="store" id="number15" onclick="queryBook(15)">100万-200万</a>-->
-<!--                        <a class="store" id="number16" onclick="queryBook(16)">200万以上</a>-->
-<!--                    </div>-->
-<!--                    <div class="cl0"></div>-->
-<!--                </div>-->
-                <!-- 更新时间 -->
-<!--                <div class="kind">-->
-<!--                    <div class="bz">更新时间：</div>-->
-<!--                    <div class="nr br">-->
-<!--                        <a class="current store" id="time17" onclick="queryBook(17)" >全部</a>-->
-<!--                        <a class="store" id="time18" onclick="queryBook(18)" >三日内</a>-->
-<!--                        <a class="store" id="time19" onclick="queryBook(19)" >七日内</a>-->
-<!--                        <a class="store" id="time20" onclick="queryBook(20)" >半月内</a>-->
-<!--                        <a class="store" id="time21" onclick="queryBook(21)" >一月内</a>-->
-<!--                    </div>-->
-<!--                    <div class="cl0"></div>-->
-<!--                </div>-->
             </div>
         </div>
     </div>
@@ -308,6 +370,92 @@
                 break;
         }
         window.location.href = url;
+    }
+    // var dds=document.querySelectorAll('dd');
+    // var prev=null;	//上一次点击的那个对象
+
+    // for(var i=0;i<dds.length;i++){
+    // 	dds[i].onclick=function(){
+    // 		/* for(var i=0;i<dds.length;i++){
+    // 			dds[i].className='';
+    // 		} */
+
+    // 		/* if(prev){
+    // 			prev.className='';
+    // 		} */
+
+    // 		prev && (prev.className='');
+
+    // 		this.className='active';
+
+    // 		prev=this;
+    // 	};
+    // }
+
+
+    var dls = document.querySelectorAll('dl:not(.select)');
+    var selected=document.querySelector('.select');
+
+    for (var i = 0; i < dls.length; i++) {
+        dls[i].mark=false;	//给每一行的dl标签添加一条属性，用于对应下面的dd标签。我们约定如果这个属性的值为true表示对应的标签没有创建。如果值为false表示对应的标签已经创建了
+        select(i);
+    }
+
+    function select(n) {
+        var dds = dls[n].querySelectorAll('dd');
+        var prev=null;
+        var dd=null;	//每一行都需要创建一个dd标签，放到这里是为了如果标签已经被创建了，通过这个变量能够找到这个标签
+
+        for (var i = 0; i < dds.length; i++) {
+            dds[i].onclick = function () {
+                //给当前点击的添加一个高亮
+                //prev && (prev.className = '');
+
+                if(prev){
+                    prev.className = ''
+                }
+
+                this.className = 'active';
+
+                prev = this;
+
+
+                //创建dd标签
+                var parent=this.parentNode;
+                if(!parent.mark){	//这个条件满足说明对应的dd标签还没有创建
+                    dd=document.createElement('dd');
+                    alert(dd)
+                    dd.innerHTML=this.innerHTML;
+                    selected.appendChild(dd);
+                    parent.mark=true;
+
+
+                }else{
+                    //走这里的时候说明对应的标签已经创建了，只需要把内容修改了就可以了
+                    dd.innerHTML=this.innerHTML;
+                }
+
+                var span=document.createElement('span');
+                var This=this;
+                span.innerHTML='X';
+                span.onclick=function(){
+                    //alert(1);
+                    /*
+                        点击关闭后要做的事情
+                            1、移除掉dd
+                            2、把上面点击的那个class去掉
+                            3、父级身上的mark属性要更新
+                     */
+                    selected.removeChild(dd);
+                    This.className='';
+                    parent.mark=false;
+                };
+                dd.appendChild(span);
+            };
+        }
+        console.log(dd)
+        console.log(dds)
+        console.log(prev)
     }
 </script>
 </body>
