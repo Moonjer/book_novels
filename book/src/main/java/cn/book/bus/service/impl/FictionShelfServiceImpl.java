@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author 追风
@@ -48,41 +48,41 @@ public class FictionShelfServiceImpl extends ServiceImpl<FictionShelfMapper, Fic
     @Override
     public Result addShelf(HttpServletRequest request, int fiction_id) {
         HttpSession session = request.getSession();
-        if (null==session.getAttribute("id")){
-            return new Result(-1,"未登录");
+        if (null == session.getAttribute("id")) {
+            return new Result(-1, "未登录");
         }
-        int userId= (int) session.getAttribute("id");
+        int userId = (int) session.getAttribute("id");
         //写入书架
-        FictionShelf fictionShelf=new FictionShelf();
+        FictionShelf fictionShelf = new FictionShelf();
         fictionShelf.setFictionId(fiction_id);
         fictionShelf.setSort(1);
         fictionShelf.setUserId(userId);
         fictionShelfMapper.insert(fictionShelf);
         //书架id
-        int shelfId=fictionShelf.getId();
+        int shelfId = fictionShelf.getId();
 
         //更新用户表
         User user = iUserService.getById(userId);
-        if (null==user.getShelfIds()){
+        if (null == user.getShelfIds()) {
             user.setShelfIds("");
         }
         user.setShelfIds(FictionUtil.addOne(user.getShelfIds(), String.valueOf(shelfId)));
         iUserService.updateById(user);
-        return new Result(200,"加入书架成功");
+        return new Result(200, "加入书架成功");
     }
 
     @Override
-    public int isShelf(HttpServletRequest request,int fictionId) {
+    public int isShelf(HttpServletRequest request, int fictionId) {
         HttpSession session = request.getSession();
-        if (null==session.getAttribute("id")){
+        if (null == session.getAttribute("id")) {
             return 0;
         }
-        QueryWrapper<FictionShelf> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("fiction_id",fictionId);
-        queryWrapper.eq("user_id",session.getAttribute("id"));
+        QueryWrapper<FictionShelf> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("fiction_id", fictionId);
+        queryWrapper.eq("user_id", session.getAttribute("id"));
 
         FictionShelf fictionShelf = fictionShelfMapper.selectOne(queryWrapper);
-        if (null==fictionShelf){
+        if (null == fictionShelf) {
             return 0;
         }
         return 1;
@@ -90,30 +90,38 @@ public class FictionShelfServiceImpl extends ServiceImpl<FictionShelfMapper, Fic
 
     @Override
     public List<ShelfVo> queryByUserId(int userId) throws Exception {
-        QueryWrapper<FictionShelf> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("user_id",userId);
+        QueryWrapper<FictionShelf> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
         List<FictionShelf> shelfList = fictionShelfMapper.selectList(queryWrapper);
-        if (null==shelfList){
+        if (null == shelfList) {
             return null;
         }
-        List<ShelfVo> list=new ArrayList<>();
-        for (FictionShelf shelf:shelfList){
-            QueryWrapper<Fiction> fictionQueryWrapper=new QueryWrapper<>();
-            fictionQueryWrapper.eq("id",shelf.getFictionId());
+        List<ShelfVo> list = new ArrayList<>();
+        for (FictionShelf shelf : shelfList) {
+            QueryWrapper<Fiction> fictionQueryWrapper = new QueryWrapper<>();
+            fictionQueryWrapper.eq("id", shelf.getFictionId());
             Fiction ft = iFictionService.getOne(fictionQueryWrapper);
-           list.add(new ShelfVo(shelf.getId(),ft.getId(),ft.getFictionName(),ft.getCreateDate(),ft.getAuthor(),ft.getType(),ft.getNewest(),ft.getState(),ft.getImgUrl(),ft.getBrief(),shelf.getSort()));
+            list.add(new ShelfVo(shelf.getId(), ft.getId(), ft.getFictionName(), ft.getCreateDate(), ft.getAuthor(), ft.getType(), ft.getNewest(), ft.getState(), ft.getImgUrl(), ft.getBrief(), shelf.getSort()));
         }
         return list;
     }
 
     @Override
     public int updateShelf(int fictionId, int userId, int sort) {
-        QueryWrapper<FictionShelf> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("fiction_id",fictionId);
-        queryWrapper.eq("user_id",userId);
+        QueryWrapper<FictionShelf> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("fiction_id", fictionId);
+        queryWrapper.eq("user_id", userId);
         FictionShelf fictionShelf = fictionShelfMapper.selectOne(queryWrapper);
-        fictionShelf.setSort(sort);
-        return fictionShelfMapper.updateById(fictionShelf);
+        if (null == fictionShelf) {
+            FictionShelf fictionShelf1 = new FictionShelf();
+            fictionShelf1.setFictionId(fictionId);
+            fictionShelf1.setSort(sort);
+            fictionShelf1.setUserId(userId);
+            return fictionShelfMapper.insert(fictionShelf1);
+        } else {
+            fictionShelf.setSort(sort);
+            return fictionShelfMapper.updateById(fictionShelf);
+        }
     }
 
     @Transactional(rollbackFor = Exception.class)
