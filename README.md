@@ -62,5 +62,5 @@ springboot+mybatisplus+jsoup+mysql
 
 #### 说明
 
-1.   项目前端基本完成，后续编写后台管理。
+1.   项目基本完成。
 2.   开源学习，请勿商用。
