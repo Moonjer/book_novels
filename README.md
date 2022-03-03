@@ -1,7 +1,7 @@
 # book-小说
 
 #### 介绍
-web小说网站  http://124.221.138.202:8888/fiction/index
+web小说网站  http://fiction.ztan.net:8888/fiction/index
 
 #### 软件架构
 springboot+mybatisplus+jsoup+mysql
@@ -57,10 +57,10 @@ springboot+mybatisplus+jsoup+mysql
 ![代码截图](https://images.gitee.com/uploads/images/2020/0909/164022_6c652e86_5423276.png "屏幕截图.png")
 #### 演示地址
 
-2.   首页地址 ：http://124.221.138.202:8888/fiction/index
-3.   抓取数据地址 ：http://124.221.138.202:8888/fiction/sys/index
+2.   首页地址 ：http://fiction.ztan.net:8888/fiction/index
+3.   抓取数据地址 ：http://fiction.ztan.net:8888/fiction/index
 
 #### 说明
 
-1.   项目前端基本完成，后续编写后台管理。
+1.   项目基本完成。
 2.   开源学习，请勿商用。
