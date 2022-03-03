@@ -9,10 +9,9 @@ import cn.book.bus.common.DataGridView;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -32,16 +31,16 @@ public class FictionServiceImpl extends ServiceImpl<FictionMapper, Fiction> impl
     /**
      * 默认参数
      */
-    private final  static Integer  CURR=1;
-    private final  static Integer  LIMIT=20;
-    private final  static Integer  VIEW_TYPE=2;
-    private final  static Integer  TYPE=0;
+    private final static Integer CURR = 1;
+    private final static Integer LIMIT = 20;
+    private final static Integer VIEW_TYPE = 2;
+    private final static Integer TYPE = 0;
 
 
     @Resource
     private IFictionService iFictionService;
 
-    @Autowired
+    @Resource
     private FictionMapper fictionMapper;
 
     private static final Logger log = LoggerFactory.getLogger(HttpAspect.class);
@@ -58,26 +57,66 @@ public class FictionServiceImpl extends ServiceImpl<FictionMapper, Fiction> impl
     public DataGridView queryAllFiction(FictionVo fictionVo) {
 
         //当前页和页数
-        if (null==fictionVo.getCurr()) {
+        if (null == fictionVo.getCurr()) {
             fictionVo.setCurr(CURR);
             fictionVo.setLimit(LIMIT);
         }
         //图片模式或者列表模式
-        Integer viewType =null;
-        if (null==fictionVo.getViewType()) {
+        Integer viewType = null;
+        if (null == fictionVo.getViewType()) {
             viewType = VIEW_TYPE;
-        }else {
-            viewType=fictionVo.getViewType();
+        } else {
+            viewType = fictionVo.getViewType();
         }
-        if (null==fictionVo.getType()){
+        if (null == fictionVo.getType()) {
             fictionVo.setType(TYPE);
         }
         //构建分页
         Page<Fiction> page = new Page<>(fictionVo.getCurr(), fictionVo.getLimit());
         QueryWrapper<Fiction> qw = new QueryWrapper<>();
-        //0代表所有分类
-        if (null!=fictionVo.getType()&&fictionVo.getType().equals(TYPE)) {
-            qw.eq(StringUtils.isNoneBlank(getFictionName(fictionVo.getType())), "type", getFictionName(fictionVo.getType()));
+        //分类查询
+        if (null != fictionVo.getType() && !fictionVo.getType().equals(TYPE)) {
+            qw.eq("type", FictionVo.getTypeName(fictionVo.getType()));
+        }
+        //写作进度查询
+        if (null != fictionVo.getState() && !fictionVo.getState().equals(TYPE)) {
+            qw.eq( "state", FictionVo.getState(fictionVo.getState()));
+        }
+        //字数查询
+        if (null != fictionVo.getNumber() && !fictionVo.getNumber().equals(TYPE)) {
+            int a=1,b=2,c=3,d=4,e=5;
+            if (fictionVo.getNumber().equals(a)) {
+                qw.lt("number", 300000);
+            }
+            if (fictionVo.getNumber().equals(b)) {
+                qw.gt("number",300000).lt("number", 500000);
+            }
+            if (fictionVo.getNumber().equals(c)) {
+                qw.gt("number",500000).lt("number", 1000000);
+            }
+            if (fictionVo.getNumber().equals(d)) {
+                qw.gt("number",1000000).lt("number", 2000000);
+            }
+            if (fictionVo.getNumber().equals(e)) {
+                qw.gt("number",2000000);
+            }
+        }
+        //时间段查询
+        if (null != fictionVo.getTime() && !fictionVo.getTime().equals(TYPE)) {
+            DateTime today = new DateTime();
+            int a=1,b=2,c=3,d=4;
+            if (fictionVo.getTime().equals(a)){
+                qw.ge("create_date",today.minusDays(3).toDate());
+            }
+            if (fictionVo.getTime().equals(b)){
+                qw.ge("create_date",today.minusDays(7).toDate());
+            }
+            if (fictionVo.getTime().equals(c)){
+                qw.ge("create_date",today.minusDays(15).toDate());
+            }
+            if (fictionVo.getTime().equals(d)){
+                qw.ge("create_date",today.minusDays(30).toDate());
+            }
         }
         qw.orderByDesc("create_date");
         this.fictionMapper.selectPage(page, qw);
@@ -86,49 +125,15 @@ public class FictionServiceImpl extends ServiceImpl<FictionMapper, Fiction> impl
         return new DataGridView(page.getCurrent(), page.getSize(), page.getTotal(), records, viewType, fictionVo.getType());
     }
 
+    public static void main(String[] args) {
+        DateTime today = new DateTime();
+        System.out.println(today.minusDays(3));
+    }
     @Override
     public void addView(Fiction fiction) {
         int i = fiction.getViews();
         int v = i + 1;
         fiction.setViews(v);
         iFictionService.updateById(fiction);
-    }
-    //获取小说分类
-    private String getFictionName(Integer index) {
-        String name = "";
-
-        switch (index) {
-            case 1:
-                name = "玄幻魔法";
-                break;
-            case 2:
-                name = "武侠修真";
-                break;
-            case 3:
-                name = "都市言情";
-                break;
-            case 4:
-                name = "历史军事";
-                break;
-            case 5:
-                name = "侦探推理";
-                break;
-            case 6:
-                name = "网游动漫";
-                break;
-            case 7:
-                name = "科幻灵异";
-                break;
-            case 8:
-                name = "连载中";
-                break;
-            case 9:
-                name = "完本";
-                break;
-            default:
-                name = null;
-                break;
-        }
-        return  name;
     }
 }
