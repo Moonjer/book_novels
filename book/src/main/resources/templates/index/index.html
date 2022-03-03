@@ -269,7 +269,7 @@
         </div>
         <div class="sort_listtype">
             阅读模式
-            <a id="c_digi" onclick="queryBook('viewType:2')" class="c_digi  active"></a>
+            <a id="c_digi" onclick="queryBook('viewType:2')" class="c_digi"></a>
             <a id="l_list" onclick="queryBook('viewType:1')" class="l_list"></a>
         </div>
     </div>
@@ -386,7 +386,10 @@
     <input type="hidden" id="limit" th:value="${data.limit}">
     <input type="hidden" id="curr" th:value="${data.curr}">
 </div>
-<script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    ctxPath = /*[[@{/}]]*/ '';
+    /*]]>*/
     //layui分页
     layui.use('laypage', function () {
         var laypage = layui.laypage;
@@ -420,11 +423,11 @@
         var viewType = sessionStorage.getItem("viewType");
         if (type === null) {
             type = 0;
-            sessionStorage.setItem("type", 0);
+            sessionStorage.setItem("type", type);
         }
         if (state === null) {
             state = 0;
-            sessionStorage.setItem("state", 0);
+            sessionStorage.setItem("state", state);
         }
         if (number === null) {
             number = 0;
@@ -436,30 +439,36 @@
         }
         if (viewType === null) {
             viewType = 2;
-            sessionStorage.setItem("viewType", 2);
+            sessionStorage.setItem("viewType", viewType);
         }
-        var url = "/fiction/index?type=" + type + "&state=" + state + "&number=" + number + "&time=" + time + "&viewType=" + viewType + "&curr=" + curr + "&limit=" + limit;
+        var url = ctxPath + "/index?type=" + type + "&state=" + state + "&number=" + number + "&time=" + time + "&viewType=" + viewType + "&curr=" + curr + "&limit=" + limit;
         window.location.href = url;
     }
 
     //设置点击记录
     window.onload = function () {
         //如果进入首页清除筛选条件
-        if ( getStrAfter(window.location.href,"f") === "iction/index") {
+        if (getStrAfter(window.location.href, ctxPath) === "index") {
             sessionStorage.setItem("type", 0);
             sessionStorage.setItem("state", 0);
             sessionStorage.setItem("number", 0);
             sessionStorage.setItem("time", 0);
+            sessionStorage.setItem("viewType", 2);
         }
         //设置默认属性值
         //小说分类
         if (sessionStorage.getItem("type") === undefined) {
             $("#" + 0).addClass("current");
         }
-        if (sessionStorage.getItem("viewType") === 2) {
-            alert(sessionStorage.getItem("viewType"))
+        console.log(sessionStorage.getItem("viewType"))
+        //图文模式切换
+        var viewType = 1;
+        if (Number(sessionStorage.getItem("viewType")) === viewType) {
             $("#c_digi").removeClass("active");
             $("#l_list").addClass("active");
+        } else {
+            $("#c_digi").addClass("active");
+            $("#l_list").removeClass("active");
         }
         $("#type" + sessionStorage.getItem("type")).addClass("current");
         $("#state" + sessionStorage.getItem("state")).addClass("current");
@@ -531,7 +540,7 @@
             limit = 30;
             sessionStorage.setItem("limit", limit);
         }
-        var url = "/fiction/index?type=" + type + "&state=" + state + "&number=" + number + "&time=" + time + "&viewType=" + viewType + "&curr=" + curr + "&limit=" + limit;
+        var url = ctxPath + "/index?type=" + type + "&state=" + state + "&number=" + number + "&time=" + time + "&viewType=" + viewType + "&curr=" + curr + "&limit=" + limit;
         window.location.href = url;
     }
 </script>
