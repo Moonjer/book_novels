@@ -438,7 +438,7 @@
             viewType = 2;
             sessionStorage.setItem("viewType", 2);
         }
-        var url = "http://localhost:8888/fiction/index?type=" + type + "&state=" + state + "&number=" + number + "&time=" + time + "&viewType=" + viewType + "&curr=" + curr + "&limit=" + limit;
+        var url = "/fiction/index?type=" + type + "&state=" + state + "&number=" + number + "&time=" + time + "&viewType=" + viewType + "&curr=" + curr + "&limit=" + limit;
         window.location.href = url;
     }
 
@@ -531,7 +531,7 @@
             limit = 30;
             sessionStorage.setItem("limit", limit);
         }
-        var url = "http://localhost:8888/fiction/index?type=" + type + "&state=" + state + "&number=" + number + "&time=" + time + "&viewType=" + viewType + "&curr=" + curr + "&limit=" + limit;
+        var url = "/fiction/index?type=" + type + "&state=" + state + "&number=" + number + "&time=" + time + "&viewType=" + viewType + "&curr=" + curr + "&limit=" + limit;
         window.location.href = url;
     }
 </script>
