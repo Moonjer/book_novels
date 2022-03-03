@@ -44,6 +44,7 @@ public class ChapterController {
 
     /**
      * 返回一本小说
+     *
      * @param request
      * @param fiction_id
      * @param model
@@ -56,20 +57,23 @@ public class ChapterController {
         iFictionService.addView(fiction);
         //检查该本小说是否保存在书架
         int i = iFictionShelfService.isShelf(request, fiction_id);
-        switch (i){
-            case 0: model.addAttribute("presence",0);
-            break;
-            case 1: model.addAttribute("presence",1);
-            break;
+        switch (i) {
+            case 0:
+                model.addAttribute("presence", 0);
+                break;
+            case 1:
+                model.addAttribute("presence", 1);
+                break;
             default:
         }
-        model.addAttribute("fiction",fiction);
-        model.addAttribute("title",fiction.getFictionName());
+        model.addAttribute("fiction", fiction);
+        model.addAttribute("title", fiction.getFictionName());
         return "chapter/info";
     }
 
     /**
      * 返回一本小说所有章节
+     *
      * @param fiction_id
      * @param model
      * @return
@@ -78,15 +82,16 @@ public class ChapterController {
     public String chapterList(@PathVariable("fiction_id") int fiction_id, Model model) {
         Fiction fiction = iFictionService.getById(fiction_id);
         List<Chapter> chapterList = iChapterService.queryByFictionIdList(fiction_id);
-        model.addAttribute("fiction",fiction);
-        model.addAttribute("list",chapterList);
-        model.addAttribute("size",chapterList.size());
-        model.addAttribute("title",fiction.getFictionName());
+        model.addAttribute("fiction", fiction);
+        model.addAttribute("list", chapterList);
+        model.addAttribute("size", chapterList.size());
+        model.addAttribute("title", fiction.getFictionName());
         return "chapter/list";
     }
 
     /**
      * 当前小说页
+     *
      * @param request
      * @param model
      * @param fiction_id
@@ -94,23 +99,23 @@ public class ChapterController {
      * @return
      */
     @RequestMapping(value = "read/{fiction_id}/{sort}", method = RequestMethod.GET)
-    public String chapterInfo(HttpServletRequest request,Model model, @PathVariable("fiction_id") int fiction_id,@PathVariable("sort") int sort) {
+    public String chapterInfo(HttpServletRequest request, Model model, @PathVariable("fiction_id") int fiction_id, @PathVariable("sort") int sort) {
         //更新用户阅读章节
         HttpSession session = request.getSession();
 
-        if (null!=session.getAttribute("id")){
+        if (null != session.getAttribute("id")) {
             int id = iFictionShelfService.updateShelf(fiction_id, (Integer) session.getAttribute("id"), sort);
-            if (id!=1){
+            if (id != 1) {
                 System.out.println("更新用户章节失败");
             }
         }
-        Chapter chapter=iChapterService.netChapter(fiction_id,sort);
-        if (null!=chapter){
+        Chapter chapter = iChapterService.netChapter(fiction_id, sort);
+        if (null != chapter) {
             //获取小说内容
-            ChapterContent chapterContent=iChapterContentService.getById(chapter.getContentId());
-            model.addAttribute("chapter",chapter);
-            model.addAttribute("content",chapterContent);
-            model.addAttribute("title",chapter.getChapterTitle());
+            ChapterContent chapterContent = iChapterContentService.getById(chapter.getContentId());
+            model.addAttribute("chapter", chapter);
+            model.addAttribute("content", chapterContent);
+            model.addAttribute("title", chapter.getChapterTitle());
         }
         return "chapter/read";
     }
@@ -118,27 +123,32 @@ public class ChapterController {
 
     /**
      * 上下页
+     *
      * @param fiction_id
      * @param sort
      * @param status
      * @param model
      * @return
      */
-    @RequestMapping(value = "netRead/{fiction_id}/{sort}/{status}",method = RequestMethod.GET)
-    public String netChapter(@PathVariable("fiction_id") int fiction_id,@PathVariable("sort") int sort,@PathVariable("status") int status,Model model) {
-        if (status==1){
-            if (sort!=1){
-                sort=sort-1;
+    @RequestMapping(value = "netRead/{fiction_id}/{sort}/{status}", method = RequestMethod.GET)
+    public String netChapter(@PathVariable("fiction_id") int fiction_id, @PathVariable("sort") int sort, @PathVariable("status") int status, Model model) {
+        if (status == 1) {
+            if (sort != 1) {
+                sort = sort - 1;
             }
-        }else {
-            sort=sort+1;
+        } else {
+            sort = sort + 1;
         }
-        Chapter chapter = iChapterService.netChapter(fiction_id,sort);
+        Chapter chapter = iChapterService.netChapter(fiction_id, sort);
+        if (chapter == null) {
+            sort = sort - 1;
+            chapter = iChapterService.netChapter(fiction_id, sort);
+        }
         //获取小说内容
-        ChapterContent chapterContent=iChapterContentService.getById(chapter.getContentId());
-        model.addAttribute("chapter",chapter);
-        model.addAttribute("content",chapterContent);
-        model.addAttribute("title",chapter.getChapterTitle());
+        ChapterContent chapterContent = iChapterContentService.getById(chapter.getContentId());
+        model.addAttribute("chapter", chapter);
+        model.addAttribute("content", chapterContent);
+        model.addAttribute("title", chapter.getChapterTitle());
         return "chapter/read";
     }
 }
