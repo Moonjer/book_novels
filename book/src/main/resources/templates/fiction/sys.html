@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.springframework.org/schema/jdbc">
 <head>
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="https://static.zongheng.com/favicon.ico" />
@@ -48,7 +48,7 @@
         <td>
                 <span class="input-group-btn">
               <button onclick="write_fiction()" type="button" class="btn btn-warning">抓取小说</button>
-              <a class="btn btn-success" href="/fiction/index/index" target="_blank">阅读小说</a>
+              <a class="btn btn-success" th:href="@{index}" target="_blank">阅读小说</a>
          </span>
         </td>
     </tr>
@@ -58,7 +58,7 @@
         <td>
               <span class="input-group-btn">
               <button onclick="write_fictions()" type="button" class="btn btn-warning">抓取小说</button>
-              <a class="btn btn-success" href="/fiction/index/index" target="_blank">阅读小说</a>
+              <a class="btn btn-success" th:href="@{index}" target="_blank">阅读小说</a>
          </span>
         </td>
     </tr>
@@ -74,12 +74,16 @@
     </tbody>
 </table>
 </body>
-<script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    ctxPath = /*[[@{/}]]*/ '';
+    /*]]>*/
+
     //抓取单本小说
     function write_fiction() {
         var _url = $("#fiction_url").val();
         $.ajax({
-            url: "/fiction/sys/write",
+            url: ctxPath+"sys/write",
             type: "POST",
             data: {"fiction_url": _url},
             dataType: 'json',
@@ -95,7 +99,7 @@
         var _url = $("#fiction_urls").val();
         alert(_url);
         $.ajax({
-            url: "/fiction/sys/writes",
+            url: ctxPath+"sys/writes",
             type: "POST",
             data: {"fiction_urls": _url},
             dataType: 'json',

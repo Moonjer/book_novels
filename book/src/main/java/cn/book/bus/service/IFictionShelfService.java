@@ -1,6 +1,5 @@
 package cn.book.bus.service;
 
-import cn.book.bus.domain.Fiction;
 import cn.book.bus.domain.FictionShelf;
 import cn.book.bus.utils.Result;
 import cn.book.bus.vo.ShelfVo;

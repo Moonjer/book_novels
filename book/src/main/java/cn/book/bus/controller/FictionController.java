@@ -2,7 +2,6 @@ package cn.book.bus.controller;
 
 
 import cn.book.bus.aop.HttpAspect;
-import cn.book.bus.common.Constant;
 import cn.book.bus.service.WriteFictionService;
 import cn.book.bus.utils.JsoupUtil;
 import cn.book.bus.utils.Result;

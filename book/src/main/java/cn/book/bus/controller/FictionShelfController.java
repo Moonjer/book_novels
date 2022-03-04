@@ -1,7 +1,6 @@
 package cn.book.bus.controller;
 
 
-import cn.book.bus.domain.Fiction;
 import cn.book.bus.service.IFictionShelfService;
 import cn.book.bus.utils.Result;
 import cn.book.bus.vo.ShelfVo;
@@ -9,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

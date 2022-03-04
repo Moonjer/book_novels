@@ -1,7 +1,6 @@
 package cn.book.bus.service.impl;
 
 import cn.book.bus.domain.Chapter;
-
 import cn.book.bus.mapper.ChapterMapper;
 import cn.book.bus.service.IChapterService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;

@@ -4,7 +4,6 @@ import cn.book.bus.domain.Fiction;
 import cn.book.bus.domain.FictionShelf;
 import cn.book.bus.domain.User;
 import cn.book.bus.mapper.FictionShelfMapper;
-import cn.book.bus.mapper.UserMapper;
 import cn.book.bus.service.IFictionService;
 import cn.book.bus.service.IFictionShelfService;
 import cn.book.bus.service.IUserService;
@@ -19,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -4,7 +4,6 @@ import cn.book.bus.aop.HttpAspect;
 import cn.book.bus.domain.Chapter;
 import cn.book.bus.service.DownloadService;
 import cn.book.bus.service.IChapterService;
-import cn.book.bus.utils.JsoupUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

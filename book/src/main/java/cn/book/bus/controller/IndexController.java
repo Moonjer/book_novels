@@ -1,8 +1,8 @@
 package cn.book.bus.controller;
 
+import cn.book.bus.common.DataGridView;
 import cn.book.bus.domain.Fiction;
 import cn.book.bus.service.IFictionService;
-import cn.book.bus.common.DataGridView;
 import cn.book.bus.vo.FictionVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

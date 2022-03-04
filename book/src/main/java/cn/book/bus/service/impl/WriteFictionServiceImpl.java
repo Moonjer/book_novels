@@ -2,25 +2,21 @@ package cn.book.bus.service.impl;
 
 
 import cn.book.bus.aop.HttpAspect;
-import cn.book.bus.common.Constant;
 import cn.book.bus.domain.Chapter;
 import cn.book.bus.domain.ChapterContent;
 import cn.book.bus.domain.Fiction;
 import cn.book.bus.mapper.ChapterContentMapper;
 import cn.book.bus.mapper.ChapterMapper;
-import cn.book.bus.service.IChapterContentService;
 import cn.book.bus.service.IFictionService;
 import cn.book.bus.service.WriteFictionService;
 import cn.book.bus.utils.JsoupUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
