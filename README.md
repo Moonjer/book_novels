@@ -1,7 +1,9 @@
 # book-小说
 
 #### 介绍
-web小说网站  http://fiction.ztan.net:8888/fiction/index
+web小说网站  http://fiction.ztan.net:8888/fiction/index 
+
+如果绝对对你有用，请个个小星星吧！
 
 #### 软件架构
 springboot+mybatisplus+jsoup+mysql
