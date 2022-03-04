@@ -3,7 +3,7 @@
 #### 介绍
 web小说网站  http://fiction.ztan.net:8888/fiction/index 
 
-如果对你有用，请个个小星星吧！
+如果对你有用，请给个小星星吧！
 
 #### 软件架构
 springboot+mybatisplus+jsoup+mysql
