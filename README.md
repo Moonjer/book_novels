@@ -1,9 +1,11 @@
 # book-小说
 
 #### 介绍
-服务器到期不再提供预览啦，你们自己下载在本地跑吧！
+服务器我已经够买了，近期恢复预览！
 
 如果对你有用，请给个小星星吧！
+####
+各位师兄弟们推荐你们个充值会员平台有优惠,https://wx.jonvie.com/whc?flag=1
 
 #### 软件架构
 springboot+mybatisplus+jsoup+mysql
