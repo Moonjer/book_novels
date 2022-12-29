@@ -76,7 +76,7 @@ public class WriteFictionServiceImpl implements WriteFictionService {
                             //章节标题
                             String title = document.select("h1").text();
                             //章节内容
-                            String text = JsoupUtil.subContent(document.getElementById("content").html());
+                            String text = document.getElementById("content").html();
                             //保存小说内容
                             chapterContentMapper.insert(chapterContent.setContent(text));
                             int id = chapterContent.getId();
@@ -112,12 +112,12 @@ public class WriteFictionServiceImpl implements WriteFictionService {
                 String type = document.select("meta[property=og:novel:category]").attr("content");
                 String newest = document.select("meta[property=og:novel:latest_chapter_name]").attr("content");
                 String state = document.select("meta[property=og:novel:status]").attr("content");
-                String img = document.select("div>img").attr("abs:src");
+                String img = document.select("#fmimg > img").attr("abs:src");
                 //小说基本信息
                 Elements small = document.select("div.small");
                 //字数
-                String number = JsoupUtil.sub(small.get(0).child(3).text());
-                return new Fiction("", img, brief, fictionName, author, type, newest, state, number);
+//                String number = JsoupUtil.sub(small.get(0).child(3).text());
+                return new Fiction("", img, brief, fictionName, author, type, newest, state, "");
             } catch (Exception e) {
                 log.error("获取小说基本信息失败"+e);
             }

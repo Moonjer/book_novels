@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.springframework.org/schema/jdbc">
 <head>
     <meta charset="UTF-8">
-    <link rel="shortcut icon" href="https://static.zongheng.com/favicon.ico" />
+    <link rel="shortcut icon" href="https://static.zongheng.com/favicon.ico"/>
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
@@ -16,6 +16,7 @@
         a {
             cursor: pointer;
         }
+
         th {
             text-align: center;
         }
@@ -33,7 +34,7 @@
         </div>
     </div>
 </nav>
-<table   class="table table-bordered table-hover">
+<table class="table table-bordered table-hover">
     <thead>
     <tr>
         <th style="width: 20%">名称</th>
@@ -48,7 +49,7 @@
         <td>
                 <span class="input-group-btn">
               <button onclick="write_fiction()" type="button" class="btn btn-warning">抓取小说</button>
-              <a class="btn btn-success" th:href="@{index}" target="_blank">阅读小说</a>
+              <a class="btn btn-success" th:href="@{/index}" target="_blank">阅读小说</a>
          </span>
         </td>
     </tr>
@@ -58,16 +59,21 @@
         <td>
               <span class="input-group-btn">
               <button onclick="write_fictions()" type="button" class="btn btn-warning">抓取小说</button>
-              <a class="btn btn-success" th:href="@{index}" target="_blank">阅读小说</a>
+              <a class="btn btn-success" th:href="@{/index}" target="_blank">阅读小说</a>
          </span>
         </td>
     </tr>
     <tr>
-        <td>小说来源</td>
-        <td>批量抓取地址为:网站分类地址如【<a href="http://www.shuquge.com/category/1_1.html">链接</a>】/单本抓取地址为:单本详情地址如【<a href="http://www.shuquge.com/txt/5809/index.html">链接</a>】</td>
+        <td style="color: red">小说来源</td>
+        <td>
+            <span style="font-weight: bold">批量抓取小说示例地址:</span><a
+                href="http://www.b5200.org/xuanhuanxiaoshuo/">抓取地址</a>
+            <br>
+            <span style="font-weight: bold">单本抓取小说示例地址:</span><a href="http://www.b5200.org/52_52516/">抓取地址</a>
+        </td>
         <td>
              <span class="input-group-btn">
-                 <a href="http://www.shuquge.com" type="button" class="btn btn-link">前往</a>
+                 <a href="http://www.b5200.org" type="button" class="btn btn-link">前往</a>
          </span>
         </td>
     </tr>
@@ -83,13 +89,13 @@
     function write_fiction() {
         var _url = $("#fiction_url").val();
         $.ajax({
-            url: ctxPath+"sys/write",
+            url: ctxPath + "sys/write",
             type: "POST",
             data: {"fiction_url": _url},
             dataType: 'json',
             success: function (res) {
                 alert(res.msg);
-                this.message=res.msg;
+                this.message = res.msg;
             }
         })
     }
@@ -99,7 +105,7 @@
         var _url = $("#fiction_urls").val();
         alert(_url);
         $.ajax({
-            url: ctxPath+"sys/writes",
+            url: ctxPath + "sys/writes",
             type: "POST",
             data: {"fiction_urls": _url},
             dataType: 'json',

@@ -19,12 +19,14 @@ import java.util.Map;
 public class JsoupUtil {
 
     private static final Logger log = LoggerFactory.getLogger(HttpAspect.class);
+
     /**
      * @param content
      * @return 删除Html标签
      */
     public static String delHTMLTag(String content) {
-        content = content.replaceAll("\\&[a-zA-Z]{1,10};", "").replaceAll("<[^>]*>", "").replaceAll("[(/>)<]", "");
+        content = content.replaceAll("\\&[a-zA-Z]{1,10};", "").replaceAll("<[^>]*>", "")
+            .replaceAll("[(/>)<]", "");
 
         // 去除字符串中的空格 回车 换行符 制表符 等
 
@@ -59,7 +61,8 @@ public class JsoupUtil {
      * @return
      * @throws UnsupportedEncodingException
      */
-    private static String changeCharSet(String str, String newCharset) throws UnsupportedEncodingException {
+    private static String changeCharSet(String str, String newCharset)
+        throws UnsupportedEncodingException {
         if (str != null) {
             // 用默认字符编码解码字符串。
             byte[] bs = str.getBytes();
@@ -92,39 +95,27 @@ public class JsoupUtil {
     /**
      * 获取链接的document对象
      *
-     * @param url
+     * @param url url
      * @return document
      */
     public static Document getDoc(String url) {
-        Map<String, String> header = new HashMap<String, String>();
-        header.put("Host", "http://info.bet007.com");
-        header.put("User-Agent", "  Mozilla/5.0 (Windows NT 6.1; WOW64; rv:5.0) Gecko/20100101 Firefox/5.0");
-        header.put("Accept", "  text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-        header.put("Accept-Language", "zh-cn,zh;q=0.5");
-        header.put("Accept-Charset", "  GB2312,utf-8;q=0.7,*;q=0.7");
-        header.put("Connection", "keep-alive");
-        boolean flag = false;
+        boolean flag;
         Document document = null;
-        int i=0;
+        int i = 0;
         do {
             try {
-                document = Jsoup
-                        .connect(url)
-                        .header("Host","www.shuquge.com")
-                        .header("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9")
-                        .header("Accept-Encoding","gzip, deflate")
-                        .header("Accept-Language","zh-CN,zh;q=0.9")
-                        .header("Cache-Control","no-cache")
-                        .header("Connection","keep-alive")
-                        .header("Pragma","no-cache")
-                        .header("Upgrade-Insecure-Requests","1")
-                        .timeout(5000)
-                        .userAgent("Mozilla")//模拟浏览器
-                        .get();
+                document = Jsoup.connect(url).header("Host", "www.b5200.org").header("Accept",
+                        "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9")
+                    .header("Accept-Encoding", "gzip, deflate")
+                    .header("Accept-Language", "zh-CN,zh;q=0.9").header("Cache-Control", "no-cache")
+                    .header("Connection", "keep-alive").header("Pragma", "no-cache")
+                    .header("Upgrade-Insecure-Requests", "1").timeout(5000)
+                    .userAgent("Mozilla")//模拟浏览器
+                    .get();
                 flag = false;
             } catch (IOException e) {
                 i++;
-                log.info("获取html失败了"+i+"次");
+                log.info("获取document失败重试{}次", i);
                 flag = true;
             }
         } while (flag);
@@ -132,7 +123,7 @@ public class JsoupUtil {
     }
 
     public static void main(String[] args) {
-        Document doc = getDoc("http://www.shuquge.com/txt/8659/33435905.html");
+        Document doc = getDoc("http://www.b5200.org/192_192495/");
         System.out.println("doc = " + doc);
     }
 
@@ -144,8 +135,7 @@ public class JsoupUtil {
         }
         while (counts < 10) {
             try {
-                HttpURLConnection connection = (HttpURLConnection) new URL(url)
-                        .openConnection();
+                HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
                 int state = connection.getResponseCode();
                 if (state == 200) {
                     flag = true;
@@ -153,7 +143,6 @@ public class JsoupUtil {
                 break;
             } catch (Exception e) {
                 counts++;
-                continue;
             }
         }
         return flag;
