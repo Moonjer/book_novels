@@ -5,10 +5,10 @@
 
 如果对你有用，请给个小星星吧！
 ####
-<p> 推荐一个会员充值的公众号，由我的朋友工作室运营开发:smile:有需要的帅哥美女多多支持一下呗！</p>
-<p><img alt="轻羽VIP" style="width:80px;heigth:80px;" src="https://gitee.com/lin_zhao_quan/book_novels/raw/master/cz_qrcode.png"/></p>
-<P style="text-align:center">超值虚拟会员充值低至3折起</P>
-<P style="text-align:center">视频影视、音乐社交、生活办公总有一款你需要的！</P>
+<p text-align: center;> 推荐一个会员充值的公众号，由我的朋友工作室运营开发:smile:有需要的帅哥美女多多支持一下呗！</p>
+<ptext-align: center; ><img alt="轻羽VIP" style="width: 150px;;" src="https://gitee.com/lin_zhao_quan/book_novels/raw/master/cz_qrcode.png"/></p>
+<P style="text-align: center;">超值虚拟会员充值低至3折起</P>
+<P style="text-align: center;">视频影视、音乐社交、生活办公总有一款你需要的！</P>
 #### 软件架构
 springboot+mybatisplus+jsoup+mysql
 
