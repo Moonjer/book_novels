@@ -5,8 +5,10 @@
 
 如果对你有用，请给个小星星吧！
 ####
- **各位师兄弟们推荐你们个充值会员平台有优惠** ,https://wx.jonvie.com/whc?flag=1
-
+ 推荐一个会员充值的网站 由我的朋友工作室运营开发:smile:有需要的帅哥美女多多支持一下呗！
+![输入图片说明](cz_qrcode.png) 
+<P style="text-align:center">超值虚拟会员充值低至3折起</P>
+<P style="text-align:center">视频影视、音乐社交、生活办公总有一款你需要的！</P>
 #### 软件架构
 springboot+mybatisplus+jsoup+mysql
 
