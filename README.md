@@ -5,10 +5,10 @@
 
 如果对你有用，请给个小星星吧！
 ####
-<p align="center"> 推荐一个会员充值的公众号，由我的朋友工作室运营开发:smile:<br/>有需要的帅哥美女多多支持一下呗！</p>
+<p align="center"> 推荐一个会员充值的公众号，由我的朋友工作室运营开发</p>
 
 <p align="center"><img alt="轻羽VIP" width="150px"src="https://gitee.com/lin_zhao_quan/book_novels/raw/master/cz_qrcode.png"/></p>
-<P align="center">腾讯视频VIP周卡     原价12元    特价7元 </P>
+<P align="center" font-size="13px">腾讯视频VIP周卡     原价12元    特价7元 </P>
 <P align="center">优酷视频会员周卡    原价14元    特价6.5元 </P>
 <P align="center">芒果TV会员周卡     原价12元     特价7.5元</P>
 <P align="center">更多内容就在轻羽VIP</P>
